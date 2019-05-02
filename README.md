@@ -1,4 +1,8 @@
-Software Requirements: 
+Please pull every time you start working on a new change!
+
+
+
+ Requirements: 
 
 Ihr braucht: 
 
