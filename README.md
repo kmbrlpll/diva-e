@@ -27,6 +27,5 @@ Dieser Befehl schaut in die package.json rein und schaut, welche Packages wir br
 
 
 
-
-
-
+Bitte ladet euch die EXPO App runter auf eurem Handy ( nicht die Expo Api App). In dieser App solltet ihr einen QR Code scannen können. Expo wird in der Lage sein, die Changes auf eurem Handy anzeigen zu lassen.
+Wie cool ist das denn?!
