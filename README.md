@@ -4,7 +4,9 @@ Ihr braucht:
 
 
 >>Node.js
+
 >>npm/yarn
+
 >>Expo React Native
 
 
