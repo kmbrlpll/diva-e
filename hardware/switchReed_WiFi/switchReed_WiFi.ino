@@ -8,8 +8,8 @@
 #define LED_BUILTIN 2 
 // GPIO Pin for DoorReed
 int switchReed = 16; 
-const char* ssid     = "FRITZ!Box 7412";
-const char* password = "04607602449893391807";
+const char* ssid     = "Name_of_Router";
+const char* password = "PASSWORD_OF_ROUTER";
 // Change the variable to your Raspberry Pi IP address, so it connects to your MQTT broker
 const char* mqtt_server = "192.168.178.88";
 const char* topicWindow = "/esp8266/windowStatus";
