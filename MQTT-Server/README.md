@@ -5,9 +5,11 @@ I would advice to have a look to the first link bellow in "useful links".
 Bellow is written short sequence of steps taken from the manual.
 
 `$ python3 -m venv venv` -- create virtual environment.
-`$ venv\Scripts\activate` Activate virtual environment in Windows. 
+
+`$ venv\Scripts\activate` Activate virtual environment in **Windows**. 
 If everything is ok, than should appear (venv) before the cursor, like `(venv) $ _`
-For Linux / Mac activation of venv is like this: `$ source venv/bin/activate`.
+
+For **Linux / Mac** activation of venv is like this: `$ source venv/bin/activate`.
 
 After that it should be additional packages installed. The first package is flask itself: `$ pip install flask`.
 
@@ -26,6 +28,14 @@ Ofc "package-name" is just a placeholder which we should replace with given bell
 * app.py -- entry point of the entire app
 * app/routes.py -- there are API links and how should they behaved
 * app/models.py -- Just models.
+
+#### **IDEs**
+I would recommend **PyCharm** community edition. It is very powerful and free. 
+Behaves like Eclipse in Java and has some cool features like automatically activating venv and integrated interaction with git.  
+Controversial this IDE needs some time to get used to.  
+I would at least give a try.
+
+On other hand **VSCode** with installed python plugins is also a good choice.
 
 #### **Useful links**
 
