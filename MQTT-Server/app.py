@@ -4,7 +4,7 @@ import connexion
 from flask_socketio import SocketIO, emit
 
 app = connexion.App(__name__, specification_dir='./')
-app.add_api('swagger.yaml')
+app.add_api('swagger.yml')
 socketio = SocketIO(app)
 
 

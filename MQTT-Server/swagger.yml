@@ -22,7 +22,7 @@ paths:
       tags:
       - configuration-resource
       summary: getConfiguration
-      operationId: getConfigurationUsingGET
+      operationId: configuration.get_all
       parameters: []
       responses:
         200:
