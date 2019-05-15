@@ -1,6 +1,6 @@
-##**Backend Readme**
+## **Backend Readme**
 
-####**How to create flask project**
+#### **How to create flask project**
 I would advice to have a look to the first link bellow in "useful links". 
 Bellow is written short sequence of steps taken from the manual.
 
@@ -11,10 +11,10 @@ For Linux / Mac activation of venv is like this: `$ source venv/bin/activate`.
 
 After that it should be additional packages installed. The first package is flask itself: `$ pip install flask`.
 
-####**How to run flask server**
+#### **How to run flask server**
 `$ flask run` in commandline. 
 
-####**Packages to install**
+#### **Packages to install**
 Installation of packages: `$ pip install package-name` in commandline.
 
 Ofc "package-name" is just a placeholder which we should replace with given bellow package names. For example: `$ pip install flask`.
@@ -22,12 +22,12 @@ Ofc "package-name" is just a placeholder which we should replace with given bell
 * paho-mqtt
 * flask-socketio -- this is temporal package, will be removed so there is no need to install it.
 
-####**Description of directories**
+#### **Description of directories**
 * app.py -- entry point of the entire app
 * app/routes.py -- there are API links and how should they behaved
 * app/models.py -- Just models.
 
-####**Useful links**
+#### **Useful links**
 
 * https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 The first part of big flask tutorial. There is described the first setup of flask project.
