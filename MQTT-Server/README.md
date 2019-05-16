@@ -26,8 +26,12 @@ Ofc "package-name" is just a placeholder which we should replace with given bell
 
 #### **Description of directories**
 * app.py -- entry point of the entire app
-* app/routes.py -- there are API links and how should they behaved
-* app/models.py -- Just models.
+* app/__init__ -- Init files are intended to behave directory as a package 
+* app/mqtt_controller.py -- there should be all the things that are working with mqtt
+* app/models.py -- Just models. All JSON routine should be done there.
+* app/api/configurations.py -- routes for configurations (api/configuration/things)
+* app/api/states.py -- routes for states of things
+* app/api/tokens.py -- there should be some token routine
 
 #### **IDEs**
 I would recommend **PyCharm** community edition. It is very powerful and free. 
