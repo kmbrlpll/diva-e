@@ -10,4 +10,8 @@ def create_app():
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
 
+    @app.route('/')
+    def index():
+        return 'Hi! You are at the root directory of the API.\n The API paths begin from /api/'
+
     return app
