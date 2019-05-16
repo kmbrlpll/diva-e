@@ -5,6 +5,7 @@ def create_app():
     ''' Initializing app '''
     app = Flask(__name__)
     SECRET_KEY = 'Secret'
+    app.debug = True
 
     #  Import api blueprints with root prefix /api
     from app.api import bp as api_bp
