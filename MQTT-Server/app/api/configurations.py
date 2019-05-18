@@ -1,4 +1,6 @@
+from flask import jsonify, request
 from app.api import bp
+from app.models import Thing
 
 
 @bp.route('/configuration', methods=['GET'])
