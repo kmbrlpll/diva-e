@@ -2,19 +2,17 @@ import React, {Component } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
 
-class LocationPlanScreen extends Component {
+class TestChildScreen2 extends Component {
   render(){
     return(
       <View style = { styles.container } >
-
-          <Text>Location Plan Window Screen</Text>
-
+          <Text>TestChildScreen2</Text>
       </View>
     );
   }
 }
 
-export default LocationPlanScreen;
+export default TestChildScreen2;
 
 const styles = StyleSheet.create({
   container: {

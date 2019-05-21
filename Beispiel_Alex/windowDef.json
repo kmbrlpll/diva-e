@@ -1,0 +1,19 @@
+[{
+  "id": "test-thing",
+  "map": "map1",
+  "xCoord": 15,
+  "yCoord": 10
+},
+  {
+    "id": "test-thing2",
+    "map": "map1",
+    "xCoord": 25,
+    "yCoord": 20
+  },
+  {
+    "id": "test-thing3",
+    "map": "map1",
+    "xCoord": 35,
+    "yCoord": 30
+  }
+]
