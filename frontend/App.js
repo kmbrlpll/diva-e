@@ -16,7 +16,6 @@ import SideMenu from './components/SideMenu';
 import { widthPercentageToDP, heightPercentageToDP } from './helpers/PercentageToDPHelper.js';
 
 class DrawerStackNavigation extends Component {
-
 toggleDrawer = () => {
   this.props.navigationProps.toggleDrawer();
 };
@@ -29,17 +28,6 @@ toggleDrawer = () => {
     );
   }
 }
-
-
-
-/*const styles = StyleSheet.create({
-  container: {
-    flex: 1,i
-    backgroundColor: '#fff',
-    textAlign: 'center',
-    flex: 1
-  },
-});*/
 
 
 const stylingStackNavigators = {
@@ -191,8 +179,7 @@ const DrawerNavigation = createDrawerNavigator(
       drawerLabel: 'Test Child 2'
     },
   },
-
-},
+  },
 
 {
   drawerWidth: 200,

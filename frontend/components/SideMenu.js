@@ -80,8 +80,6 @@ export default class SideMenu extends Component {
 
 
     renderChildDrawerItems = () => {
-
-      console.log("njgnjkgnjs");
       return(
         childRoutes.map(
           (item) => {
@@ -104,9 +102,6 @@ export default class SideMenu extends Component {
         let {currentComponent} = this.state;
 
         const childRoutes = Object.keys(drawerItems[currentComponent]);
-
-
-                console.log(childRoutes);
 
                 const Children =  () => {
                   return (childRoutes.map(
@@ -185,7 +180,6 @@ export default class SideMenu extends Component {
         fontSize: 15,
         marginTop: 15,
         marginLeft: 15,
-
     },
     screenContainer: {
         paddingTop: 20
@@ -207,8 +201,6 @@ export default class SideMenu extends Component {
       borderBottomWidth: 1,
 },
 
-
-
 styleViewUnterBackButton: {
     marginTop: 50,
   flexDirection: 'column'
@@ -218,7 +210,6 @@ screenStyleUnderBackButton: {
 
     height: 30,
     marginTop: 50,
-
     alignItems: 'center'
 },
 });

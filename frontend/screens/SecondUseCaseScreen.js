@@ -7,13 +7,13 @@ class SecondUseCaseScreen extends Component {
     return(
       <View style = { styles.container } >
           <Text>Second Use Case Base</Text>
+
       </View>
     );
   }
 }
 
-export default WindowTrackerBaseScreen;
-
+export default SecondUseCaseScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
