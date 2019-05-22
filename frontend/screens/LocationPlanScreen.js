@@ -58,6 +58,7 @@ class LocationPlanScreen extends Component {
       <View style = { styles.container } > 
           <Image source={require('../assets/divaeBuroPlanRaisedBrightness.png')} style={styles.image} resizeMode = 'stretch'/>
           {windows}
+
       </View>
     );
   }

@@ -1,9 +1,7 @@
 import React, {Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+
+import { View, Text, StyleSheet, Button } from "react-native";
 import { TextField } from 'react-native-materialui-textfield';
-import { Button } from 'react-native-material-ui';
-
-
 
 
 class HomeSettingsScreen extends Component {
@@ -45,6 +43,8 @@ export default HomeSettingsScreen;
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

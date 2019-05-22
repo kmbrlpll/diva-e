@@ -2,20 +2,17 @@ import React, {Component } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
 
-class SecondUseCaseScreen extends Component {
+class WindowTrackerBaseScreen extends Component {
   render(){
     return(
-
       <View style = { styles.container } >
-          <Text>Second Use Case Base</Text>
-
-
+          <Text>Window Use Case Base Screen</Text>
       </View>
     );
   }
 }
 
-export default SecondUseCaseScreen;
+export default WindowTrackerBaseScreen;
 
 const styles = StyleSheet.create({
   container: {
