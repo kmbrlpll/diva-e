@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from app.api import bp
-from app.models import Thing, Channel
+# from app.models import Thing, Channel
 
 
 @bp.route('/states/things', methods=['GET'])
