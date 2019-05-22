@@ -22,6 +22,8 @@ Installation of packages: `$ pip install package-name` in commandline.
 Ofc "package-name" is just a placeholder which we should replace with given bellow package names. For example: `$ pip install flask`.
 * flask
 * paho-mqtt
+* flask-sqlalchemy
+* flask-migrate
 * flask-socketio -- this is temporal package, will be removed so there is no need to install it.
 
 #### **Description of directories**
