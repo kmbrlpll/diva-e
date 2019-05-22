@@ -18,20 +18,20 @@ After that it should be additional packages installed. The first package is flas
 
 #### **How to run SQLAlchemy ORM  locally** ###
 To run the SQLAlchemy ORM DB locally, `$ FLASK_APP=app.py` has to be set.
-As the `$ versions` folder under `$ migrations`is empty and will be missing in GitLab, `$ migrations`should be deleted initially.
-Afterwards, run `$ flask db init`. This will generate the said `$migrations`and `$versions`subfolder again, plus corresponding dependencies.
+As the `versions` folder under `migrations`is empty and will be missing in GitLab, `migrations`should be deleted initially.
+Afterwards, run `$ flask db init`. This will generate the said `migrations`and `versions`subfolder again, plus corresponding dependencies.
 '$ flask db migrate`will generate automatic migrations for the database, as there is no previous one.
 To apply changes to the database, run ´$ flask db downgrade` to revert or `$ flask db upgrade`to upgrade.
 
 Examples can be run in the Python shell, enter with `$ python`. 
 Run: 
 * `$ python`
-* `$from app import db ` 
-* `$ from app.models import Office, Room, Window, Heater`
-* `$ u = Office(office_name_='john', office_address='test', path_to_floorplan='some/path/')`
-* `$ db.session.add(u)`
-* `$ db.session.commit()`
-* `$ exit()`
+* `>>> from app import db ` 
+* `>>> from app.models import Office, Room, Window, Heater`
+* `>>> u = Office(office_name_='john', office_address='test', path_to_floorplan='some/path/')`
+* `>>> db.session.add(u)`
+* `>>> db.session.commit()`
+* `>>> exit()`
 
 
 #### **Packages to install**
