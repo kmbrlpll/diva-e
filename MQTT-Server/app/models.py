@@ -1,8 +1,39 @@
 from flask import  url_for
+from app import db
+
+class Office(db.Model):
+    office_id = db.Column(db.Integer, primary_key=True)
+    office_name = db.Column(db.String(64), index=True, unique=True)
+    office_address = db.Column(db.String(128), index=True, unique=True)
+    path_to_floorplan = db.Column(db.String(128), index=True, unique=True)
 
 
+class Room(db.Model):
+    room_id = db.Column(db.Integer, primary_key=True)
+    temperature = db.Column(db.Float)
+    coord_x = db.Column(db.Float)
+    coord_y = db.Column(db.Float)
+    office_id = db.Column(db.Integer, db.ForeignKey('office.office_id'))
+
+class Window(db.Model):
+    window_id = db.Column(db.Integer, primary_key=True)
+    state = db.Column(db.Boolean)
+    coord_x = db.Column(db.Float)
+    coord_y = db.Column(db.Float)
+    room_id = db.Column(db.Integer, db.ForeignKey('room.room_id'))
+
+class Heater(db.Model):
+    heater_id = db.Column(db.Integer, primary_key=True)
+    temperature = db.Column(db.Float)
+    coord_x = db.Column(db.Float)
+    coord_y = db.Column(db.Float)
+    room_id = db.Column(db.Integer, db.ForeignKey('room.room_id'))
+
+
+
+'''
 class Thing():
-    ''' This is example of how the models should be till we find how they should be created '''
+    ''' '''This is example of how the models should be till we find how they should be created''' '''
 
     def __init__(self):
         self.id = "test-thing3"
@@ -23,7 +54,7 @@ class Thing():
         pass
 
 class Channel():
-    ''' This is example of how the models should be till we find out how they should be created '''
+    ''' '''This is example of how the models should be till we find out how they should be created''' '''
 
     def __init__(self):
         self.id = "channel-3"
@@ -50,3 +81,4 @@ class Channel():
 
     def from_dict(self, data):
         pass
+'''
