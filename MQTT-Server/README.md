@@ -26,6 +26,9 @@ To apply changes to the database, run ´$ flask db downgrade` to revert or `$ fl
 Examples can be run in the Python shell, enter with `$ python`. 
 Run: 
 * `$ python`
+* `>>> from app import create_app`
+* `>>> app = create_app()`
+* `>>> app.app_context().push()`
 * `>>> from app import db ` 
 * `>>> from app.models import Office, Room, Window, Heater`
 * `>>> u = Office(office_name_='john', office_address='test', path_to_floorplan='some/path/')`
