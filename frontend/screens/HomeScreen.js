@@ -2,17 +2,17 @@ import React, {Component } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
 
-class TestChildScreen extends Component {
+class HomeScreen extends Component {
   render(){
     return(
       <View style = { styles.container } >
-          <Text>TestChildScreen</Text>
+          <Text>Home Screen</Text>
       </View>
     );
   }
 }
 
-export default TestChildScreen;
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {

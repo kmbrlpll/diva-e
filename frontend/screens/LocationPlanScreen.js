@@ -8,54 +8,54 @@ import {
   PacmanIndicator,
   PulseIndicator,
   SkypeIndicator,
-  UIActivityIndicator,  
+  UIActivityIndicator,
   WaveIndicator,
 } from 'react-native-indicators';
 
 const windowList = [
   {
     id: '1.1',
-    x: 64 , 
-    y: 799, 
+    x: 64 ,
+    y: 799,
     isOpen: true,
   },
   {
     id: '1.2',
-    x: 96 , 
-    y: 799, 
+    x: 96 ,
+    y: 799,
     isOpen: true,
   },
   {
     id: '1.3',
-    x: 129 , 
-    y: 799, 
+    x: 129 ,
+    y: 799,
     isOpen: true,
   },
   {
     id: '1.4',
-    x: 162 , 
-    y: 799, 
+    x: 162 ,
+    y: 799,
     isOpen: true,
   },
   {
     id: '1.5',
-    x: 195 , 
-    y: 799, 
+    x: 195 ,
+    y: 799,
     isOpen: true,
   },
 ]
-const xMax = 665; 
+const xMax = 665;
 const yMax = 828;
 //left= {(w.x / xMax * 100).toString() + "%"} top = {(w.y / yMax * 100).toString() + "%"}
 class LocationPlanScreen extends Component {
   render(){
-    let windows = windowList.map( w => 
+    let windows = windowList.map( w =>
       <View key={w.id} style={styles.dot} left= {(w.x / xMax * 100).toString() + "%"} top = {(w.y / yMax * 100).toString() + "%"}>
-        <PulseIndicator   
+        <PulseIndicator
         color = { w.isOpen ? '#FF3333' : '#00FF7F'} size = {10}/>
-       </View>); 
+       </View>);
     return(
-      <View style = { styles.container } > 
+      <View style = { styles.container } >
           <Image source={require('../assets/divaeBuroPlanRaisedBrightness.png')} style={styles.image} resizeMode = 'stretch'/>
           {windows}
 
@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: Dimensions.get('window').width * 0.05,
-    borderStyle: 'solid', 
-    borderColor: '#999999', 
-    position: 'relative', 
-  }, 
+    borderStyle: 'solid',
+    borderColor: '#999999',
+    position: 'relative',
+  },
   image: {
-    width: '100%', 
+    width: '100%',
     height: '100%',
   },
   dot: {
