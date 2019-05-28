@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-import { DrawerNavigator, DrawerItems, StackNavigator } from 'react-navigation';
-import { createStackNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Navigation, DrawerNavigator, DrawerItems, StackNavigator } from 'react-navigation';
+import { Container, Header, Left, Body, Title, Right, Button, Footer, FooterTab } from 'native-base';
+import { createStackNavigator, createDrawerNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
+import { fromBottom, fromTop } from 'react-navigation-transitions';
+import { Ionicons as Icon } from '@expo/vector-icons';
 
+import HomeScreen from './screens/HomeScreen';
+import SettingsInfoScreen from './screens/SettingsInfoScreen';
+import SettingsScreen from './screens/SettingsScreen';
+import WindowTrackerInfoScreen from './screens/WindowTrackerInfoScreen';
+import WindowRoomPlanScreen from './screens/WindowRoomPlanScreen';
+import HeatTrackerInfoScreen from './screens/HeatTrackerInfoScreen';
+import HeatRoomPlanScreen from './screens/HeatRoomPlanScreen';
 
-import HomeSettingsScreen from './screens/HomeSettingsScreen';
-import SecondUseCaseScreen from './screens/SecondUseCaseScreen';
-import WindowTrackerBaseScreen from './screens/WindowTrackerBaseScreen';
-import LocationPlanScreen from './screens/LocationPlanScreen';
-import AddWindowScreen from './screens/AddWindowScreen';
-import TestChildScreen from './screens/TestChildScreen';
-import TestChildScreen2 from './screens/TestChildScreen2';
 
 import SideMenu from './components/SideMenu';
 import { widthPercentageToDP, heightPercentageToDP } from './helpers/PercentageToDPHelper.js';
@@ -21,17 +24,39 @@ toggleDrawer = () => {
 };
   render() {
     return (
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity onPress = { this.toggleDrawer.bind(this) }>
-        </TouchableOpacity>
-      </View>
+      <View>
+      <Header style= {styles.header}>
+        <Left>
+          <Button transparent onPress={this.toggleDrawer}>
+            <Icon name='md-menu' size= {widthPercentageToDP('8%')}/>
+          </Button>
+        </Left>
+        <Body>
+          <Text>{this.props.title}</Text>
+        </Body>
+        <Right>
+        </Right>
+      </Header>
+    </View>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  header: {
+      paddingTop: heightPercentageToDP('3%'),
+      backgroundColor: '#008080',
+  },
+  footer: {
+    marginBottom: 0,
+  }
+
+});
+
+
 
 const stylingStackNavigators = {
-   //titleStyle: { textAlign: 'center'},
+
    headerRight:<View style={{padding:6}}></View>,
    headerStyle: {
      backgroundColor: '#707070'},
@@ -48,11 +73,32 @@ const stylingStackNavigators = {
    };
 
 
-const SettingsNavigator = createStackNavigator({
-   HomeSettings: {
-    screen: HomeSettingsScreen,
+  const handleCustomTransition = ({ scenes }) => {
+
+    console.log(scenes);
+   const prevScene = scenes[scenes.length - 2];
+   const nextScene = scenes[scenes.length - 1];
+
+   // Custom transitions go there
+   if (prevScene
+     && prevScene.route.routeName === 'ScreenA'
+      && nextScene.route.routeName === 'ScreenB') {
+     return zoomIn();
+  } else if (prevScene
+    && prevScene.route.routeName === 'ScreenB'
+    && nextScene.route.routeName === 'ScreenC') {
+    return zoomOut();
+  }
+  return fromBottom();
+}
+
+
+// Stack Navigators
+const HomeNavigator = createStackNavigator({
+   Home: {
+    screen: HomeScreen,
     navigationOptions: ({navigation}) => ({
-      header: null
+      header: <DrawerStackNavigation navigationProps= {navigation} title = 'Home'/>,
     }),
   }
 
@@ -60,134 +106,132 @@ const SettingsNavigator = createStackNavigator({
 
 
 
-const WindowTrackerScreenStackNavigator= createStackNavigator({
-  WindowTrackerBase: {
-    screen: WindowTrackerBaseScreen,
+const SettingsStack = createStackNavigator({
+  SettingsInfo: {
+    screen: SettingsInfoScreen,
     navigationOptions: ({navigation}) => ({
-      title: 'Window Use Case Base',
+      title: 'Settings Info',
       ...stylingStackNavigators,
-      headerLeft: <DrawerStackNavigation navigationProps= {navigation}/>,
+      header: <DrawerStackNavigation navigationProps= {navigation} title = 'Settings' nextScreen = {true} nextScreenName = "Settings"/>,
     }),
-  }
+  },
 
-});
+  Settings: {
+  screen: SettingsScreen,
+  navigationOptions: ({navigation}) => ({
+    title: 'Settings',
+    ...stylingStackNavigators,
+      header: <DrawerStackNavigation navigationProps= {navigation} title = 'Settings'/>,
+  }),
+ },
+ },
+  {
+    initialRouteName: 'SettingsInfo',
+    transitionConfig:  () => ({
+      screenInterpolator: props => {
+        if (props.scene.route.routeName === 'Settings') {
+         return fromTop(500);
+       }
+       return fromBottom(500);
+     },
+   }),
+  },
 
+);
 
-const LocationPlanStackNavigator = createStackNavigator({
-  LocationPlan: {
-    screen: LocationPlanScreen,
+const WindowTrackerStack = createStackNavigator(
+{
+  WindowTrackerInfo: {
+    screen: WindowTrackerInfoScreen,
     navigationOptions: ({navigation}) => ({
-      title: 'Fensterlageplan',
+      title: 'Window Tracker Info',
       ...stylingStackNavigators,
-
-      headerLeft: <DrawerStackNavigation navigationProps= {navigation}/>,
+      header: <DrawerStackNavigation navigationProps= {navigation} title = 'Window Tracker'/>,
     }),
-  }
-});
+  },
+
+  WindowRoomPlan: {
+  screen: WindowRoomPlanScreen,
+  navigationOptions: ({navigation}) => ({
+    title: 'Track Open windows',
+    ...stylingStackNavigators,
+      header: <DrawerStackNavigation navigationProps= {navigation} title = 'Window Tracker'/>,
+  }),
+ },
+},
+  {
+    initialRouteName: 'WindowTrackerInfo',
+    transitionConfig:  () => ({
+      screenInterpolator: props => {
+        if (props.scene.route.routeName === 'WindowRoomPlan') {
+         return fromTop(500);
+       }
+        return fromBottom(500);
+     },
+   }),
+  },
+
+);
 
 
-const SecondUseCaseStackNavigator = createStackNavigator({
-  SecondUseCase: {
-    screen: SecondUseCaseScreen,
+
+const HeatTrackerStack = createStackNavigator(
+  {
+  HeatTrackerInfo: {
+    screen: HeatTrackerInfoScreen,
     navigationOptions: ({navigation}) => ({
-      title: 'SecondUseCase',
+      title: 'Heat Tracker Info',
       ...stylingStackNavigators,
-      headerLeft: <DrawerStackNavigation  navigationProps= {navigation}/>,
+      header: <DrawerStackNavigation navigationProps= {navigation} title = 'Temperature Tracker'/>,
     }),
-  }
-});
+  },
+
+ HeatRoomPlan: {
+ screen: HeatRoomPlanScreen,
+ navigationOptions: ({navigation}) => ({
+  title: 'Track Open windows',
+  ...stylingStackNavigators,
+    header: <DrawerStackNavigation navigationProps= {navigation} title = 'Temperature Tracker'/>,
+   }),
+ },
+},
+
+{
+  initialRouteName: 'HeatTrackerInfo',
+  transitionConfig:  () => ({
+    screenInterpolator: props => {
+      if (props.scene.route.routeName === 'HeatRoomPlan') {
+       return fromTop(500);
+      }
+      return fromBottom(500);
+   },
+ }),
+},
+);
 
 
-const AddWindowStackNavigator = createStackNavigator({
-  AddWindow: {
-    screen: LocationPlanScreen,
-    navigationOptions: ({navigation}) => ({
-      title: 'Add Window Screen',
-      ...stylingStackNavigators,
-      headerLeft: <DrawerStackNavigation navigationProps= {navigation}/>,
-    }),
-  }
-});
-
-
-const TestChildStackNavigator = createStackNavigator({
-  SecondUseCaseTestChild1: {
-    screen: TestChildScreen,
-    navigationOptions: ({navigation}) => ({
-      title: 'Test Child 1',
-      ...stylingStackNavigators,
-      headerLeft: <DrawerStackNavigation  navigationProps= {navigation}/>,
-    }),
-  }
-});
-
-const TestChild2StackNavigator = createStackNavigator({
-  SecondUseCaseTestChild2: {
-    screen: TestChildScreen2,
-    navigationOptions: ({navigation}) => ({
-      title: 'Test Child 2',
-      ...stylingStackNavigators,
-      headerLeft: <DrawerStackNavigation  navigationProps= {navigation}/>,
-    }),
-  }
-});
 
 const DrawerNavigation = createDrawerNavigator(
   {
-  'Settings_Base': {
-    screen: SettingsNavigator,
-    navigationOptions: {
-      drawerLabel: 'Settings',
-    },
+    'Home': {
+    screen: HomeNavigator,
   },
 
-  'WindowUseCase_Base': {
-    screen: WindowTrackerScreenStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Window Use Case Base'
-    },
+    'Settings': {
+    screen: SettingsStack,
+  },
+    'WindowTracker': {
+    screen: WindowTrackerStack,
   },
 
-  'WindowUseCase_LocationPlan': {
-    screen: LocationPlanStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Window Location Plan'
-    },
-  },
-
-  'WindowUseCase_Add': {
-    screen: AddWindowStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Add Window',
-    },
-  },
-
-  'SecondUseCase_Base': {
-
-    screen: SecondUseCaseStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'SecondUseCase'
-    },
-  },
-
-'SecondUseCase_Child1': {
-    screen: TestChildStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Test Child 1'
-    },
-  },
-
-  'SecondUseCase_Child2': {
-    screen: TestChild2StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Test Child 2'
-    },
+   'HeatTracker': {
+    screen: HeatTrackerStack,
   },
   },
 
 
 {
-  drawerWidth: 200,
+  drawerWidth: widthPercentageToDP('60%'),
   contentComponent: SideMenu,
 },
 );
