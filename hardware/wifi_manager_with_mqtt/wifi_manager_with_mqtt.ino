@@ -10,6 +10,12 @@
 #include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
 #include <PubSubClient.h>
 
+#include "DHTesp.h"
+
+DHTesp dht;
+
+#define DHT11_PIN 4
+
 // GPIO Pin for intern LED
 #define LED_BUILTIN 2 
 // GPIO Pin for DoorReed
@@ -210,6 +216,8 @@ void setup() {
   Serial.println("local ip");
   Serial.println(WiFi.localIP());
 
+  dht.setup(DHT11_PIN, DHTesp::DHT11); // Connect DHT sensor to GPIO 2
+
   client.setServer(mqtt_server, atoi(mqtt_port));
   Serial.print("mqtt_server:  ");
   Serial.println(mqtt_server);
@@ -235,16 +243,27 @@ void loop() {
   
   if(digitalRead(switchReed)==HIGH){
     digitalWrite(LED_BUILTIN, LOW);
-    windowStatus = "Open";
+    windowStatus = "Closed";
   } else {
     digitalWrite(LED_BUILTIN, HIGH);
-    windowStatus = "Closed";
+    windowStatus = "Open";
   }
-  delay(1000);
+  delay(2000);
 
   // Publishes Window Status
   client.publish(topicWindow, windowStatus);
   
   Serial.print("Window is: ");
   Serial.println(windowStatus);
+
+  float humidity = dht.getHumidity();
+  float temperature = dht.getTemperature();
+
+  char ctemp[8], chumidity[8];
+  dtostrf(temperature, 6, 2, ctemp);
+  dtostrf(humidity, 6, 2, chumidity);
+  client.publish("/esp8266/Temperature", ctemp);
+  client.publish("/esp8266/Humidity", chumidity);
+  Serial.println("Temperature is: ");
+  Serial.print(temperature);
 }
