@@ -7,7 +7,6 @@ import { createStackNavigator, createDrawerNavigator, createAppContainer } from 
 import HomeSettingsScreen from './screens/HomeSettingsScreen';
 import SecondUseCaseScreen from './screens/SecondUseCaseScreen';
 import WindowTrackerBaseScreen from './screens/WindowTrackerBaseScreen';
-import LocationPlanScreen from './screens/LocationPlanScreen';
 import AddWindowScreen from './screens/AddWindowScreen';
 import TestChildScreen from './screens/TestChildScreen';
 import TestChildScreen2 from './screens/TestChildScreen2';
@@ -73,7 +72,7 @@ const WindowTrackerScreenStackNavigator= createStackNavigator({
 });
 
 
-const LocationPlanStackNavigator = createStackNavigator({
+/*const LocationPlanStackNavigator = createStackNavigator({
   LocationPlan: {
     screen: LocationPlanScreen,
     navigationOptions: ({navigation}) => ({
@@ -83,7 +82,7 @@ const LocationPlanStackNavigator = createStackNavigator({
       headerLeft: <DrawerStackNavigation navigationProps= {navigation}/>,
     }),
   }
-});
+});*/
 
 
 const SecondUseCaseStackNavigator = createStackNavigator({
@@ -98,7 +97,7 @@ const SecondUseCaseStackNavigator = createStackNavigator({
 });
 
 
-const AddWindowStackNavigator = createStackNavigator({
+/*const AddWindowStackNavigator = createStackNavigator({
   AddWindow: {
     screen: LocationPlanScreen,
     navigationOptions: ({navigation}) => ({
@@ -108,7 +107,7 @@ const AddWindowStackNavigator = createStackNavigator({
     }),
   }
 });
-
+*/
 
 const TestChildStackNavigator = createStackNavigator({
   SecondUseCaseTestChild1: {
@@ -148,19 +147,19 @@ const DrawerNavigation = createDrawerNavigator(
     },
   },
 
-  'WindowUseCase_LocationPlan': {
+  /*'WindowUseCase_LocationPlan': {
     screen: LocationPlanStackNavigator,
     navigationOptions: {
       drawerLabel: 'Window Location Plan'
     },
-  },
-
+  },*/
+/*
   'WindowUseCase_Add': {
     screen: AddWindowStackNavigator,
     navigationOptions: {
       drawerLabel: 'Add Window',
     },
-  },
+  },*/
 
   'SecondUseCase_Base': {
 
