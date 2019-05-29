@@ -73,6 +73,14 @@ exp://aa-9zd.mailyle.frontend.exp.direct:80
 
 
 
+WHAT NOT TO PUSH
+
+the whole node-modules folder
+yarn-lock
+package.json.lock 
+
+images should only be pushed once as git cannot merge images 
+
 
 
 

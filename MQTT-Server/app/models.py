@@ -7,6 +7,9 @@ class Office(db.Model):
     office_address = db.Column(db.String(128), index=True, unique=True)
     path_to_floorplan = db.Column(db.String(128), index=True, unique=True)
 
+    def __repr__(self):
+        return '<{},{},{},{}>'.format(self.office_id, self.office_name, self.office_address, self.path_to_floorplan) 
+
 
 class Room(db.Model):
     room_id = db.Column(db.Integer, primary_key=True)
@@ -15,6 +18,9 @@ class Room(db.Model):
     coord_y = db.Column(db.Float)
     office_id = db.Column(db.Integer, db.ForeignKey('office.office_id'))
 
+    def __repr__(self):
+        return '<{},{},{},{},{}>'.format(self.room_id, self.temperature, self.coord_x, self.coord_y, self.office_id)  
+
 class Window(db.Model):
     window_id = db.Column(db.Integer, primary_key=True)
     state = db.Column(db.Boolean)
@@ -22,12 +28,19 @@ class Window(db.Model):
     coord_y = db.Column(db.Float)
     room_id = db.Column(db.Integer, db.ForeignKey('room.room_id'))
 
+    def __repr__(self):
+        return '<{},{},{},{},{}>'.format(self.window_id, self.state, self.coord_x, self.coord_y, self.room_id)  
+
 class Heater(db.Model):
     heater_id = db.Column(db.Integer, primary_key=True)
     temperature = db.Column(db.Float)
     coord_x = db.Column(db.Float)
     coord_y = db.Column(db.Float)
     room_id = db.Column(db.Integer, db.ForeignKey('room.room_id'))
+
+    def __repr__(self):
+        return '<{},{},{},{},{}>'.format(self.heater_id, self.temperature, self.coord_x, self.coord_y, self._id)  
+ 
 
 
 
