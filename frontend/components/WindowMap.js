@@ -193,134 +193,129 @@ const windowList = [
     x: 632 , 
     y: 290, 
     isOpen: true,
-  },{
-    id: '33',
-    x: 632 , 
-    y: 245, 
-    isOpen: true,
   },
   {
-    id: '34',
+    id: '33',
     x: 637 , 
     y: 245, 
     isOpen: true,
   },
   {
-    id: '35',
+    id: '36',
     x: 640 , 
     y: 224, 
     isOpen: true,
   },
   {
-    id: '36',
+    id: '37',
     x: 640 , 
     y: 191, 
     isOpen: true,
   },
   {
-    id: '37',
+    id: '38',
     x: 640 , 
     y: 158, 
     isOpen: true,
   },
   {
-    id: '38',
+    id: '39',
     x: 640 , 
     y: 125, 
     isOpen: true,
   },
   {
-    id: '39',
+    id: '40',
     x: 640 , 
     y: 91, 
     isOpen: true,
   },
   {
-    id: '40',
-    x: 640 , 
-    y: 59, 
-    isOpen: true,
-  },
-  {
     id: '41',
-    x: 325 , 
+    x: 640, 
     y: 59, 
     isOpen: true,
   },
   {
     id: '42',
     x: 325 , 
+    y: 59, 
+    isOpen: true,
+  },
+  {
+    id: '43',
+    x: 325 , 
     y: 91, 
     isOpen: true,
   },
     {
-    id: '43',
-    x: 325 , 
-    y: 120, 
-    isOpen: true,
-  },
-  {
     id: '44',
-    x: 325 , 
-    y: 163, 
+    x: 325, 
+    y: 120, 
     isOpen: true,
   },
   {
     id: '45',
     x: 325 , 
-    y: 191, 
+    y: 163, 
     isOpen: true,
   },
   {
     id: '46',
     x: 325 , 
-    y: 223, 
+    y: 191, 
     isOpen: true,
   },
   {
     id: '47',
+    x: 325 , 
+    y: 223, 
+    isOpen: true,
+  },
+  {
+    id: '48',
     x: 295 , 
     y: 278, 
     isOpen: true,
   },
   {
-    id: '48',
+    id: '49',
     x: 267 , 
     y: 278, 
     isOpen: true,
   },
   {
-    id: '49',
+    id: '50',
     x: 224 , 
     y: 278, 
     isOpen: true,
   },
   {
-    id: '50',
+    id: '51',
     x: 195 , 
     y: 278, 
     isOpen: true,
   },
   {
-    id: '51',
-    x: 163 , 
-    y: 278, 
-    isOpen: true,
-  },
-  {
     id: '52',
-    x: 135 , 
+    x: 163, 
     y: 278, 
     isOpen: true,
   },
   {
     id: '53',
-    x: 92 , 
+    x: 135 , 
     y: 278, 
     isOpen: true,
   },
   {
     id: '54',
+    x: 92 , 
+    y: 278, 
+    isOpen: true,
+  },
+  {
+    id: '55',
     x:  64, 
     y: 278, 
     isOpen: true,
@@ -329,26 +324,170 @@ const windowList = [
 const thermometherList = [
   {
     id: 1, 
-    x: 0,
-    y: 0,
+    x: 85,
+    y: 734,
     value: '26', 
     type: 'heater',
   },
+  {
+    id: 2, 
+    x: 196,
+    y: 734,
+    value: '28', 
+    type: 'heater',
+  },
+  {
+    id: 3, 
+    x: 310,
+    y: 734,
+    value: '18', 
+    type: 'heater',
+  },
+  {
+    id: 4, 
+    x: 425,
+    y: 734,
+    value: '10', 
+    type: 'heater',
+  },
+  {
+    id: 5, 
+    x: 558,
+    y: 716,
+    value: '23', 
+    type: 'heater',
+  },
+  {
+    id: 6, 
+    x: 575,
+    y: 585,
+    value: '13', 
+    type: 'heater',
+  },
+  {
+    id: 7, 
+    x: 575,
+    y: 469,
+    value: '17', 
+    type: 'heater',
+  },
+  {
+    id: 8, 
+    x: 575,
+    y: 371,
+    value: '20', 
+    type: 'heater',
+  },
+  {
+    id: 9, 
+    x: 575,
+    y: 305,
+    value: '27', 
+    type: 'heater',
+  },
+  {
+    id: 10, 
+    x: 575,
+    y: 223,
+    value: '31', 
+    type: 'heater',
+  },
+  {
+    id: 11, 
+    x: 575,
+    y: 97,
+    value: '13', 
+    type: 'heater',
+  },
+  {
+    id: 12, 
+    x: 416,
+    y: 81,
+    value: '15', 
+    type: 'heater',
+  },
+  {
+    id: 13, 
+    x: 390,
+    y: 208,
+    value: '26', 
+    type: 'heater',
+  },
+  {
+    id: 14, 
+    x: 385,
+    y: 297,
+    value: '33', 
+    type: 'heater',
+  },
+  {
+    id: 15, 
+    x: 262,
+    y: 343,
+    value: '19', 
+    type: 'heater',
+  },
+  {
+    id: 16, 
+    x: 162,
+    y: 343,
+    value: '23', 
+    type: 'heater',
+  },
+  {
+    id: 17, 
+    x: 69,
+    y: 343,
+    value: '24', 
+    type: 'heater',
+  },
 ]
+
+const temperaturColorPalette = ['#0054ff' , '#04f06a' , '#f5b700' ,'#e80049','#ba212b']
+
 const xMax = 665; 
 const yMax = 828;
-
+const red = '#FF3333';
 class WindowMap extends Component {
+
+  assignThermometerColor = (temperature) => {
+      t = parseInt(temperature);
+      if(t <= 15) {
+        return temperaturColorPalette[0]; 
+      }else if(t > 15 && t <= 20) {
+        return temperaturColorPalette[1];
+      }else if(t > 20 && t <= 25) {
+        return temperaturColorPalette[2];
+      }else if(t > 25 && t <= 30) {
+        return temperaturColorPalette[3];
+      }else if(t > 30) {
+        return temperaturColorPalette[4];
+      }
+  }
+
   render(){
     let windows = windowList.map( w => 
-        <View key={w.id} style={styles.dot} left= {(w.x / xMax * 100).toString() + "%"} top = {(w.y / yMax * 100).toString() + "%"}>
+        <View 
+        key={w.id} 
+        style={styles.dot} 
+        left= {(w.x / xMax * 100).toString() + "%"} 
+        top = {(w.y / yMax * 100).toString() + "%"}>
         <PulseIndicator   
-        color = { w.isOpen ? '#FF3333' : '#00FF7F'} size = {10}/>
+        color = { w.isOpen ? red : 'transparent'} size = {10}/>
        </View>); 
+    let thermomethers = thermometherList.map( t => 
+        <View 
+        left= {(t.x / xMax * 100).toString() + "%"} 
+        top = {(t.y / yMax * 100).toString() + "%"}
+        key = {t.id}
+        style ={styles.thermo}  
+        backgroundColor = {this.assignThermometerColor(t.value)}
+        ><Text style={styles.thermoText}>{t.value}°</Text></View>);
     return(
       <View style = {styles.container}> 
           <Image source={require('../assets/divaeBuroPlanRaisedBrightness.png')} style={styles.image} resizeMode = 'stretch'/>
           {windows}
+          {thermomethers}
       </View>
     );
   }
@@ -363,7 +502,7 @@ const styles = StyleSheet.create({
     borderWidth: Dimensions.get('window').width * 0.05,
     borderTopWidth: Dimensions.get('window').width * 0.12,
     borderStyle: 'solid', 
-    borderColor: '#999999', 
+    borderColor: '#EEEEEE', 
     position: 'absolute', 
   },
   image: {
@@ -375,5 +514,20 @@ const styles = StyleSheet.create({
     marginTop: -5,
     marginLeft: -5,
     flex: 1,
+  }, 
+  thermo: {
+    position: 'absolute', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex:1, 
+    width: 20, 
+    height: 20, 
+    borderRadius: 10,
+    marginLeft: -10, 
+    marginTop: -10,
+   },
+  thermoText: {
+    color: 'white',
+    fontSize: 8,
   }
 });
