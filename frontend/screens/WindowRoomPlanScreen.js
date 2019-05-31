@@ -10,7 +10,7 @@ class WindowRoomPlanScreen extends Component {
         <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
             <Icon name='ios-arrow-dropup-circle' size= {40}/>
         </TouchableOpacity>
-        <WindowMap></WindowMap>
+        <WindowMap type='window' ></WindowMap>
       </View>
     );
   }
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative'
+    position: 'relative',
   },
   backButton: {
     position: 'absolute',
