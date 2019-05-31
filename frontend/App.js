@@ -109,13 +109,14 @@ const HomeNavigator = createStackNavigator({
 const SettingsStack = createStackNavigator({
   SettingsInfo: {
     screen: SettingsInfoScreen,
+
     navigationOptions: ({navigation}) => ({
       title: 'Settings Info',
       ...stylingStackNavigators,
       header: <DrawerStackNavigation navigationProps= {navigation} title = 'Settings' nextScreen = {true} nextScreenName = "Settings"/>,
     }),
-  },
 
+  },
   Settings: {
   screen: SettingsScreen,
   navigationOptions: ({navigation}) => ({
@@ -170,8 +171,8 @@ const WindowTrackerStack = createStackNavigator(
      },
    }),
   },
-
 );
+
 
 
 
@@ -196,6 +197,7 @@ const HeatTrackerStack = createStackNavigator(
  },
 },
 
+
 {
   initialRouteName: 'HeatTrackerInfo',
   transitionConfig:  () => ({
@@ -208,8 +210,6 @@ const HeatTrackerStack = createStackNavigator(
  }),
 },
 );
-
-
 
 const DrawerNavigation = createDrawerNavigator(
   {
