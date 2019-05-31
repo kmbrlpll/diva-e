@@ -14,12 +14,6 @@ import WindowRoomPlanScreen from './screens/WindowRoomPlanScreen';
 import HeatTrackerInfoScreen from './screens/HeatTrackerInfoScreen';
 import HeatRoomPlanScreen from './screens/HeatRoomPlanScreen';
 
-import HomeSettingsScreen from './screens/HomeSettingsScreen';
-import SecondUseCaseScreen from './screens/SecondUseCaseScreen';
-import WindowTrackerBaseScreen from './screens/WindowTrackerBaseScreen';
-import AddWindowScreen from './screens/AddWindowScreen';
-import TestChildScreen from './screens/TestChildScreen';
-import TestChildScreen2 from './screens/TestChildScreen2';
 
 import SideMenu from './components/SideMenu';
 import { widthPercentageToDP, heightPercentageToDP } from './helpers/PercentageToDPHelper.js';

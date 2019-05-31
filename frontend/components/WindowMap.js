@@ -146,6 +146,194 @@ const windowList = [
     y: 552, 
     isOpen: true,
   },
+  {
+    id: '25',
+    x: 632 , 
+    y: 519, 
+    isOpen: true,
+  },
+  {
+    id: '26',
+    x: 632 , 
+    y: 485, 
+    isOpen: true,
+  },
+  {
+    id: '27',
+    x: 632 , 
+    y: 454, 
+    isOpen: true,
+  },
+  {
+    id: '28',
+    x: 632 , 
+    y: 421, 
+    isOpen: true,
+  },
+  {
+    id: '29',
+    x: 632 , 
+    y: 388, 
+    isOpen: true,
+  },
+  {
+    id: '30',
+    x: 632 , 
+    y: 355, 
+    isOpen: true,
+  },
+  {
+    id: '31',
+    x: 632 , 
+    y: 322, 
+    isOpen: true,
+  },
+  {
+    id: '32',
+    x: 632 , 
+    y: 290, 
+    isOpen: true,
+  },{
+    id: '33',
+    x: 632 , 
+    y: 245, 
+    isOpen: true,
+  },
+  {
+    id: '34',
+    x: 637 , 
+    y: 245, 
+    isOpen: true,
+  },
+  {
+    id: '35',
+    x: 640 , 
+    y: 224, 
+    isOpen: true,
+  },
+  {
+    id: '36',
+    x: 640 , 
+    y: 191, 
+    isOpen: true,
+  },
+  {
+    id: '37',
+    x: 640 , 
+    y: 158, 
+    isOpen: true,
+  },
+  {
+    id: '38',
+    x: 640 , 
+    y: 125, 
+    isOpen: true,
+  },
+  {
+    id: '39',
+    x: 640 , 
+    y: 91, 
+    isOpen: true,
+  },
+  {
+    id: '40',
+    x: 640 , 
+    y: 59, 
+    isOpen: true,
+  },
+  {
+    id: '41',
+    x: 325 , 
+    y: 59, 
+    isOpen: true,
+  },
+  {
+    id: '42',
+    x: 325 , 
+    y: 91, 
+    isOpen: true,
+  },
+    {
+    id: '43',
+    x: 325 , 
+    y: 120, 
+    isOpen: true,
+  },
+  {
+    id: '44',
+    x: 325 , 
+    y: 163, 
+    isOpen: true,
+  },
+  {
+    id: '45',
+    x: 325 , 
+    y: 191, 
+    isOpen: true,
+  },
+  {
+    id: '46',
+    x: 325 , 
+    y: 223, 
+    isOpen: true,
+  },
+  {
+    id: '47',
+    x: 295 , 
+    y: 278, 
+    isOpen: true,
+  },
+  {
+    id: '48',
+    x: 267 , 
+    y: 278, 
+    isOpen: true,
+  },
+  {
+    id: '49',
+    x: 224 , 
+    y: 278, 
+    isOpen: true,
+  },
+  {
+    id: '50',
+    x: 195 , 
+    y: 278, 
+    isOpen: true,
+  },
+  {
+    id: '51',
+    x: 163 , 
+    y: 278, 
+    isOpen: true,
+  },
+  {
+    id: '52',
+    x: 135 , 
+    y: 278, 
+    isOpen: true,
+  },
+  {
+    id: '53',
+    x: 92 , 
+    y: 278, 
+    isOpen: true,
+  },
+  {
+    id: '54',
+    x:  64, 
+    y: 278, 
+    isOpen: true,
+  }
+]
+const thermometherList = [
+  {
+    id: 1, 
+    x: 0,
+    y: 0,
+    value: '26', 
+    type: 'heater',
+  },
 ]
 const xMax = 665; 
 const yMax = 828;
@@ -153,12 +341,12 @@ const yMax = 828;
 class WindowMap extends Component {
   render(){
     let windows = windowList.map( w => 
-      <View key={w.id} style={styles.dot} left= {(w.x / xMax * 100).toString() + "%"} top = {(w.y / yMax * 100).toString() + "%"}>
+        <View key={w.id} style={styles.dot} left= {(w.x / xMax * 100).toString() + "%"} top = {(w.y / yMax * 100).toString() + "%"}>
         <PulseIndicator   
         color = { w.isOpen ? '#FF3333' : '#00FF7F'} size = {10}/>
        </View>); 
     return(
-      <View style = { styles.container } > 
+      <View style = {styles.container}> 
           <Image source={require('../assets/divaeBuroPlanRaisedBrightness.png')} style={styles.image} resizeMode = 'stretch'/>
           {windows}
       </View>
@@ -170,14 +358,14 @@ export default WindowMap;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%', 
+    height: '100%',
     borderWidth: Dimensions.get('window').width * 0.05,
+    borderTopWidth: Dimensions.get('window').width * 0.12,
     borderStyle: 'solid', 
     borderColor: '#999999', 
-    position: 'relative', 
-  }, 
+    position: 'absolute', 
+  },
   image: {
     width: '100%', 
     height: '100%',
