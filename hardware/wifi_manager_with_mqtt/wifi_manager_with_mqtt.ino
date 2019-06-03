@@ -20,12 +20,12 @@ DHTesp dht;
 #define LED_BUILTIN 2 
 // GPIO Pin for DoorReed
 int switchReed = 16; 
-const char* topicWindow = "/esp8266/windowStatus";
-const char* boardName = "thing1";
+char* gateway_topic = "things/data/";
 
 //define your default values here, if there are different values in config.json, they are overwritten.
 char mqtt_server[40];
 char mqtt_port[6] = "1883";
+char thing_id[20] = "thing";
 char token[34] = "YOUR_TOKEN";
 
 //flag for saving data
@@ -89,6 +89,17 @@ void reconnect() {
   }
 }
 
+// This Function converts value to Json
+char* generateJson(char* value){
+  StaticJsonBuffer<75> jsonBuffer;
+  JsonObject& root = jsonBuffer.createObject();
+  root["value"] = value;
+  String sJson;
+  root.printTo(sJson);
+  char* serializedJson = &sJson[0u];
+  return serializedJson;
+}
+
 void setup() {
   pinMode(switchReed, INPUT);
   // initialize LED digital pin as an output.
@@ -124,6 +135,7 @@ void setup() {
 
           strcpy(mqtt_server, json["mqtt_server"]);
           strcpy(mqtt_port, json["mqtt_port"]);
+          strcpy(thing_id, json["thing_id"]);
           strcpy(token, json["token"]);
 
         } else {
@@ -144,6 +156,7 @@ void setup() {
   // id/name placeholder/prompt default length
   WiFiManagerParameter custom_mqtt_server("server", "mqtt server", mqtt_server, 40);
   WiFiManagerParameter custom_mqtt_port("port", "mqtt port (default: 1883)", mqtt_port, 6);
+  WiFiManagerParameter custom_thing_id("thing_id", "name of thing", thing_id, 20);
   WiFiManagerParameter custom_token("blynk", "token", token, 32);
 
   //WiFiManager
@@ -159,6 +172,7 @@ void setup() {
   //add all your parameters here
   wifiManager.addParameter(&custom_mqtt_server);
   wifiManager.addParameter(&custom_mqtt_port);
+  wifiManager.addParameter(&custom_thing_id);
   wifiManager.addParameter(&custom_token);
 
   //reset settings - for testing
@@ -191,6 +205,7 @@ void setup() {
   //read updated parameters
   strcpy(mqtt_server, custom_mqtt_server.getValue());
   strcpy(mqtt_port, custom_mqtt_port.getValue());
+  strcpy(thing_id, custom_thing_id.getValue());
   strcpy(token, custom_token.getValue());
 
   //save the custom parameters to FS
@@ -200,6 +215,7 @@ void setup() {
     JsonObject& json = jsonBuffer.createObject();
     json["mqtt_server"] = mqtt_server;
     json["mqtt_port"] = mqtt_port;
+    json["thing_id"] = thing_id;
     json["token"] = token;
 
     File configFile = SPIFFS.open("/config.json", "w");
@@ -218,6 +234,8 @@ void setup() {
 
   dht.setup(DHT11_PIN, DHTesp::DHT11); // Connect DHT sensor to GPIO 2
 
+  strcat(gateway_topic, thing_id);
+
   client.setServer(mqtt_server, atoi(mqtt_port));
   Serial.print("mqtt_server:  ");
   Serial.println(mqtt_server);
@@ -234,9 +252,9 @@ void loop() {
     reconnect();
   }
   if(!client.loop()){
-    client.connect("ESP8266Client");
+    //client.connect("ESP8266Client");
     // If there authentification should be used, uncomment bellow
-    // client.connect("ESP8266Client", boardName, token);
+    client.connect(thing_id, thing_id, token);
   }
 
   char* windowStatus;
@@ -251,7 +269,7 @@ void loop() {
   delay(2000);
 
   // Publishes Window Status
-  client.publish(topicWindow, windowStatus);
+  client.publish(strcat(gateway_topic, "/window"), generateJson(windowStatus));
   
   Serial.print("Window is: ");
   Serial.println(windowStatus);
@@ -262,8 +280,8 @@ void loop() {
   char ctemp[8], chumidity[8];
   dtostrf(temperature, 6, 2, ctemp);
   dtostrf(humidity, 6, 2, chumidity);
-  client.publish("/esp8266/Temperature", ctemp);
-  client.publish("/esp8266/Humidity", chumidity);
+  client.publish(strcat(gateway_topic, "/temperature"), generateJson(ctemp));
+  client.publish(strcat(gateway_topic, "/humidity"), generateJson(chumidity));
   Serial.println("Temperature is: ");
   Serial.print(temperature);
 }
