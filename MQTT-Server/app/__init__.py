@@ -11,12 +11,12 @@ migrate = Migrate()
 def create_app():
     ''' Initializing app '''
     app = Flask(__name__)
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     app.debug = True
     app.config.from_object(Config)
 
-    db.init_app(app)
-    migrate.init_app(app, db)
+    with app.app_context():
+        db.init_app(app)
+        migrate.init_app(app, db)
 
     #  Import api blueprints with root prefix /api
     from app.api import bp as api_bp
