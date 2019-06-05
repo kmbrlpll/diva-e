@@ -1,0 +1,37 @@
+{
+  "path" : "p",
+  "things" : [
+
+    {
+      "id" : "thing_01",
+      "put":
+      {
+        "name": "heaters_in_office_1",
+        "properties": {},
+        "protocol":{"name":"string","properties":{}},
+        "enabled": true,
+        "channels":[
+          {"id":"h01","name":"heater_01","properties":{"x":"10","y":"15","type":"heater"},"enabled":true,"description":"heater in office 1","type":"other","mode":"r"},
+          {"id":"h02","name":"heater_02","properties":{"x":"5","y":"10","type":"heater"},"enabled":true,"description":"heater in office 1","type":"other","mode":"r"}
+          ],
+        "description": "heaters in office 1"
+      }
+    },
+    {
+      "id" : "thing_02",
+      "put":
+      {
+        "name": "windows_in_office_1",
+        "properties": {},
+        "protocol":{"name":"string","properties":{}},
+        "enabled": true,
+        "channels":[
+          {"id":"w01","name":"window_01","properties":{"x":"10","y":"15","type":"window"},"enabled":true,"description":"window in office 1","type":"other","mode":"r"},
+          {"id":"w02","name":"window_02","properties":{"x":"5","y":"10","type":"window"},"enabled":true,"description":"window in office 1","type":"other","mode":"r"}
+          ],
+        "description": "windows in office 1"
+      }
+    }
+    
+  ]
+}
