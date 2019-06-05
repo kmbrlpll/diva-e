@@ -14,9 +14,6 @@ headers = {
     'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
 }
 
-# define a temperature threshold to tell whether a radiator is on or off
-threshold = 30
-
 # requests api and returns the state of a single channel
 def get_channel_state(channel_id, thing_id):
     r_state = requests.get(url_state + thing_id + "/channels/" + channel_id, {}, headers=headers)
@@ -45,9 +42,29 @@ def get_channels(c_type):
     return all_channels
 
 
+@app.route('/floorplanurl', methods=['GET'])
+def get_floorplan_url():
+    try:
+        with open('../test_office_config.json') as json_file:
+            data = json.load(json_file)
+            floorplan_info = {
+                "image_url" : data["path"],
+                "office_name" : data["name"]
+            }
+    except:
+        floorplan_info = {
+            "error_code" : 404,
+            "message" : "Floorplan data could not be loaded from configuration."
+
+        }
+    return floorplan_info
+
+
 # returns a json of all channels that represent an open window
-@app.route('/openwindows')
+@app.route('/openwindows', methods=['GET'])
 def get_open_windows():
+    response = {}
+
     open_windows = get_channels("window")
 
     for k,v in open_windows.items():
@@ -64,7 +81,7 @@ def get_open_windows():
 
     return json.dumps(open_windows)
 
-@app.route('/runningheaters')
+@app.route('/runningheaters', methods=['GET'])
 def get_running_heaters():
     open_windows = get_channels("heater")
 
@@ -81,4 +98,3 @@ def get_running_heaters():
 
 if __name__ == '__main__':
     app.run(debug=True)
-

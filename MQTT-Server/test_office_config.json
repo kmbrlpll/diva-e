@@ -3,7 +3,7 @@
   "things" : [
 
     {
-      "id" : "thing_01",
+      "id" : "h_Office1",
       "put":
       {
         "name": "heaters_in_office_1",
@@ -18,7 +18,7 @@
       }
     },
     {
-      "id" : "thing_02",
+      "id" : "w_Office1",
       "put":
       {
         "name": "windows_in_office_1",
@@ -31,7 +31,21 @@
           ],
         "description": "windows in office 1"
       }
+    },
+    {
+      "id" : "t_Office1",
+      "put":
+      {
+        "name": "thermometer_in_office_1",
+        "properties": {},
+        "protocol":{"name":"string","properties":{}},
+        "enabled": true,
+        "channels":[
+          {"id":"t01","name":"thermometer_01","properties":{"x":"20","y":"25","type":"thermometer"},"enabled":true,"description":"thermometer in office 1","type":"other","mode":"r"}
+          ],
+        "description": "thermometer in office 1"
+      }
     }
-    
+
   ]
 }
