@@ -1,29 +1,14 @@
-from flask import Flask
-import os
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from config import Config
+from flask_restplus import Api
+from flask import Blueprint
 
-# Setting app DB
-db = SQLAlchemy()
-migrate = Migrate()
+from .main.controller.office_controller import api as office_ns
 
-def create_app():
-    ''' Initializing app '''
-    app = Flask(__name__)
-    app.debug = True
-    app.config.from_object(Config)
+blueprint = Blueprint('api', __name__)
 
-    with app.app_context():
-        db.init_app(app)
-        migrate.init_app(app, db)
+api = Api(blueprint,
+          title='FLASK RESTPLUS API BOILER-PLATE WITH JWT',
+          version='1.0',
+          description='a boilerplate for flask restplus web service'
+          )
 
-    #  Import api blueprints with root prefix /api
-    from app.api import bp as api_bp
-    app.register_blueprint(api_bp, url_prefix='/api')
-
-    @app.route('/')
-    def index():
-        return 'Hi! You are at the root directory of the API.\n The API paths begin from /api/'
-
-    return app
+api.add_namespace(office_ns, path='/office')

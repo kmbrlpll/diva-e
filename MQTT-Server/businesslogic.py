@@ -4,15 +4,10 @@ from flask import send_file
 import requests
 import json
 
+from manage import url_state, url_things, headers
+
 app = Flask(__name__)
 
-# api calls to get states of a single channel (url_state) and a list with all the thing configs (url_things)
-url_state = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/states/things/'
-url_things = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/configuration/'
-headers = {
-    'content-type': 'application/json',
-    'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
-}
 
 # define a temperature threshold to tell whether a radiator is on or off
 threshold = 30
