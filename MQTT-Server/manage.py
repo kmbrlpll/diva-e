@@ -1,8 +1,6 @@
 import os
 import unittest
 
-from app.main.model import office
-
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
@@ -20,13 +18,6 @@ migrate = Migrate(app, db)
 
 manager.add_command('db', MigrateCommand)
 
-# api calls to get states of a single channel (url_state) and a list with all the thing configs (url_things)
-url_state = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/states/things/'
-url_things = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/configuration/'
-headers = {
-    'content-type': 'application/json',
-    'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
-}
 
 @manager.command
 def run():
