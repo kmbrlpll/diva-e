@@ -1,7 +1,7 @@
 from flask_restplus import Api
 from flask import Blueprint
 
-from .main.controller.office_controller import api as office_ns
+from MQTTServer.app.main.controller.office_controller import api as office_ns
 
 blueprint = Blueprint('api', __name__)
 

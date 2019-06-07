@@ -1,5 +1,5 @@
-from app.main import db
-from app.main.model.office import Office
+from .. import db
+from ..model.office import Office
 
 def save_new_office(data):
     office = Office.query.filter_by(office_id=data['office_id']).first()
