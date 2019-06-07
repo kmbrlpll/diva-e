@@ -1,14 +1,14 @@
-from flask_restplus import Api
-from flask import Blueprint
+from flask import Flask
+import os
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from MQTTServer.app.main.config import Config
 
-from MQTTServer.app.main.controller.office_controller import api as office_ns
 
-blueprint = Blueprint('api', __name__)
 
-api = Api(blueprint,
-          title='THIS IS A TEST',
-          version='1.0',
-          description='ilonas'
-          )
-
-api.add_namespace(office_ns, path='/office')
+def create_app():
+    ''' Initializing app '''
+    app = Flask(__name__)
+    app.debug = True
+    app.config.from_object(Config)
+    return app

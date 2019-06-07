@@ -59,6 +59,10 @@ def get_floorplan_url():
         }
     return floorplan_info
 
+@app.route('/')
+def index():
+        return 'Hi! You are at the root directory of the API.\n The API paths begin from /api/'
+
 
 # returns a json of all channels that represent an open window
 @app.route('/openwindows', methods=['GET'])

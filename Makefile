@@ -8,16 +8,19 @@ system-packages:
 	sudo apt install python-pip -y
 
 python-packages:
-	pip install -r requirements.txt
+	pip install -r MQTTServer\requirements.txt
 
 install: system-packages python-packages
 
 tests:
 	python manage.py test
 
-enterenv:
-	C:\Users\ilona\Desktop\SS19\diva-e-praxisprojekt\venv\Scripts. activate
-
+# enterenv:
+#     ( \
+#        source path/to/virtualenv/bin/activate; \
+#        pip install -r requirements.txt; \
+#     )
+	
 run:
 	python manage.py run
 
