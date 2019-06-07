@@ -23,10 +23,14 @@ int switchReed = 16;
 char* gateway_topic = "things/data/";
 
 //define your default values here, if there are different values in config.json, they are overwritten.
-char mqtt_server[40];
+char mqtt_server[60];
 char mqtt_port[6] = "1883";
 char thing_id[20] = "thing";
 char token[34] = "YOUR_TOKEN";
+
+char temperature_topic[40]; 
+char humidity_topic[40];
+char window_topic[40];
 
 //flag for saving data
 bool shouldSaveConfig = false;
@@ -60,7 +64,13 @@ void callback(String topic, byte* message, unsigned int length) {
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
+    Serial.println("Attempting MQTT connection...");
+    Serial.print("Name: ");
+    Serial.print(thing_id);
+    Serial.print(" Token: ");
+    Serial.println(token);
+    Serial.print(" Server: ");
+    Serial.print(mqtt_server);
     // Attempt to connect
      /*
      YOU  NEED TO CHANGE THIS NEXT LINE, IF YOU'RE HAVING PROBLEMS WITH MQTT MULTIPLE CONNECTIONS
@@ -75,7 +85,7 @@ void reconnect() {
 
      THE SECTION IN loop() function should match your device name
     */
-    if (client.connect("ESP8266Client")) {
+    if (client.connect(thing_id, thing_id, token)) {
       Serial.println("connected");  
       // Subscribe or resubscribe to a topic
       // You can subscribe to more topics (to control more LEDs in this example)
@@ -94,11 +104,13 @@ char* generateJson(char* value){
   StaticJsonBuffer<75> jsonBuffer;
   JsonObject& root = jsonBuffer.createObject();
   root["value"] = value;
-  String sJson;
-  root.printTo(sJson);
-  char* serializedJson = &sJson[0u];
+  char serializedJson[100];
+  root.printTo((char*)serializedJson, root.measureLength() + 1);
+  Serial.println("\n char Json: ");
+  Serial.print(serializedJson);
   return serializedJson;
 }
+
 
 void setup() {
   pinMode(switchReed, INPUT);
@@ -154,7 +166,7 @@ void setup() {
   // The extra parameters to be configured (can be either global or just in the setup)
   // After connecting, parameter.getValue() will get you the configured value
   // id/name placeholder/prompt default length
-  WiFiManagerParameter custom_mqtt_server("server", "mqtt server", mqtt_server, 40);
+  WiFiManagerParameter custom_mqtt_server("server", "mqtt server", mqtt_server, 60);
   WiFiManagerParameter custom_mqtt_port("port", "mqtt port (default: 1883)", mqtt_port, 6);
   WiFiManagerParameter custom_thing_id("thing_id", "name of thing", thing_id, 20);
   WiFiManagerParameter custom_token("blynk", "token", token, 32);
@@ -235,6 +247,13 @@ void setup() {
   dht.setup(DHT11_PIN, DHTesp::DHT11); // Connect DHT sensor to GPIO 2
 
   strcat(gateway_topic, thing_id);
+  strcat(temperature_topic, gateway_topic);
+  strcat(temperature_topic, "/temperature");
+  strcat(humidity_topic, gateway_topic);
+  strcat(humidity_topic, "/humidity");
+  strcat(window_topic, gateway_topic);
+  strcat(window_topic, "/window");
+  
 
   client.setServer(mqtt_server, atoi(mqtt_port));
   Serial.print("mqtt_server:  ");
@@ -244,6 +263,7 @@ void setup() {
   Serial.print("token:  ");
   Serial.println(token);
   client.setCallback(callback);
+
 }
 
 void loop() {
@@ -266,22 +286,19 @@ void loop() {
     digitalWrite(LED_BUILTIN, HIGH);
     windowStatus = "Open";
   }
-  delay(2000);
+  delay(10000);
 
   // Publishes Window Status
-  client.publish(strcat(gateway_topic, "/window"), generateJson(windowStatus));
-  
-  Serial.print("Window is: ");
-  Serial.println(windowStatus);
+  client.publish(window_topic, generateJson(windowStatus));
 
   float humidity = dht.getHumidity();
   float temperature = dht.getTemperature();
 
   char ctemp[8], chumidity[8];
-  dtostrf(temperature, 6, 2, ctemp);
+  sprintf(ctemp, "%f", temperature);
+  
   dtostrf(humidity, 6, 2, chumidity);
-  client.publish(strcat(gateway_topic, "/temperature"), generateJson(ctemp));
-  client.publish(strcat(gateway_topic, "/humidity"), generateJson(chumidity));
-  Serial.println("Temperature is: ");
-  Serial.print(temperature);
+  client.publish(temperature_topic, generateJson(ctemp));
+  client.publish(humidity_topic, generateJson(chumidity));
+  char* temp = generateJson(ctemp);
 }
