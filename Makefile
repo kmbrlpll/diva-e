@@ -24,4 +24,10 @@ tests:
 run:
 	python manage.py run
 
+setup:
+	python manage.py setup
+
+delete:
+	python manage.py delete
+
 all: clean install tests run

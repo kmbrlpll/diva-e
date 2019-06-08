@@ -1,6 +1,4 @@
 import requests
-import json
-
 
 url = "http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/configuration/"
 

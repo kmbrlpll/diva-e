@@ -9,9 +9,9 @@ headers = {
 }
 
 def save_tokens_to_file(tokens):
-    now = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+    now = datetime.now().strftime('%Y_%m_%d')
     try:
-        with open('setup_things_' + now + '.json', 'w') as outfile:
+        with open('../../test/src/setup_things_' + now + '.json', 'w') as outfile:
             json.dump(tokens, outfile)
         print("saved JSON!")
     except:
@@ -22,7 +22,7 @@ def main():
     tokens = []
     #error handling here!
     try:
-        with open('../test_office_config.json') as json_file:
+        with open('../../test/src/test_office_config.json') as json_file:
             data = json.load(json_file)
             all_things = data["things"]
 
