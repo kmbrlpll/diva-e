@@ -8,7 +8,7 @@ app = Flask(__name__)
 url_things = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/configuration/'
 headers = {
     'content-type': 'application/json',
-    'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXX'
+    'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
 }
 
 
