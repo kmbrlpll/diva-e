@@ -21,7 +21,7 @@ def get_channel_state(channel_id, thing_id):
 def get_channels(c_type):
     all_channels = {}
     r_things = requests.get(url_things, {}, headers=headers)
-    with open('C:\\Users\\ilona\\Desktop\\SS19\\diva-e-praxisprojekt\\MQTTServer\\app\\test\\src\\response_1560089536349.json') as json_file:
+    with open('C:\\Users\\ilona\\Desktop\\SS19\\diva-e-praxisprojekt\\MQTTServer\\app\\test\\src\\CarosStructure.json') as json_file:
             data = json.load(json_file)
 
     for i in data["things"]:
