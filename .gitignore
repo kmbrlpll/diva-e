@@ -39,6 +39,7 @@ testem.log
 
 # virutal environment of Python
 /MQTT-Server/venv
+venv/
 
 # System Files
 .DS_Store
