@@ -8,7 +8,7 @@ app = Flask(__name__)
 url_things = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/configuration/'
 headers = {
     'content-type': 'application/json',
-    'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
+    'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXX'
 }
 
 
@@ -26,7 +26,7 @@ def get_ids():
                 id_list.append(thing["id"])
         all_channels["data"] = id_list
     else:
-        all_channels["data"] = "Sorry, theres no data here :("
+        all_channels["data"] = {"error_code" : things.status_code, "message" :"Sorry, nothing was found." }
     return json.dumps(all_channels)
 
 
