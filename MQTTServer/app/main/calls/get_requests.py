@@ -3,7 +3,7 @@ from flask import request
 from flask import send_file
 from flask import Blueprint
 import json
-from MQTTServer.app.main.calls.get_channels import get_channel_state, get_channels
+from MQTTServer.app.main.calls.get_channels_andriy import get_channel_state, get_channels
 
 routing = Blueprint('routing', __name__)
 
