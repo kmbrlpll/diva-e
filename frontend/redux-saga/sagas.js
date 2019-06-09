@@ -134,7 +134,6 @@ export function* loadRoomPlan() {
   }
 }
 
-/users/2'
 //error handling
 
 function* handleErrorHeaters(err) {
