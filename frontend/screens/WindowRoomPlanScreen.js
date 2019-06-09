@@ -1,9 +1,43 @@
 import React, {Component } from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
-import { Ionicons as Icon } from '@expo/vector-icons'
+import { Ionicons as Icon } from '@expo/vector-icons';
+import  { connect }  from "react-redux";
+
+import {
+  loadOpenWindows,
+  loadRoomMap
+} from '../redux-saga/actions.js';
 
 class WindowRoomPlanScreen extends Component {
+  componentDidMount() {
+    let { dispatch } = this.props;
+    dispatch(loadOpenWindows());
+    dispatch(loadRoomMap());
+  }
+
   render(){
+    let {open_windows, room_plan, error_message_windows, error_message_room_plan} = this.props;
+
+    if(error_message_windows &&  error_message_room_plan){
+      console.log("errors in window tracker caught");
+
+    }
+    if(open_windows && room_plan){
+      console.log("window tracker");
+      console.log(open_windows);
+      console.log(room_plan);
+    }
+
+    if(error_message_windows){
+      console.log("open windows");
+      console.log(open_windows);
+    }
+
+    if(error_message_room_plan){
+      console.log("room plan error");
+
+    }
+
     return(
       <View style = { styles.container } >
       <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
@@ -14,7 +48,17 @@ class WindowRoomPlanScreen extends Component {
   }
 }
 
-export default WindowRoomPlanScreen;
+const mapStateToProps = state => {
+  return {
+    fetching_open_windows: state.globalUnpersistedfetching_open_windows,
+    open_windows: state.globalUnpersisted.open_windows,
+    error_message_windows: state.globalUnpersisted.error_message_windows,
+
+    fetching_room_plan: state.globalUnpersisted.fetching_room_plan,
+    room_plan: state.globalUnpersisted.room_plan,
+    error_message_room_plan: state.globalUnpersisted.error_message_room_plan,
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -28,3 +72,5 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent"
   }
 });
+
+export default connect(mapStateToProps)(WindowRoomPlanScreen);
