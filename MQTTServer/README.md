@@ -1,5 +1,40 @@
 ## **Backend Readme**
 
+#### **Description of directories**
+| File | description |
+| ------ | ------ |
+| ../Makefile | Will be used to compile / setup dependencies and the needed environment for our API to run. |
+| ../Dockerfile | Basically the Makefile for our Docker Image |
+| ../manage.py | This is the file that invokes different services of our API (deletion, running the service..) . It gets a copy of the app from main and runs it. |
+| /requirements.txt | This file lists all of the Python packages that your app depends on. You may have separate files for production and development dependencies. |
+| /app/ | This is the package that contains the application. | 
+| /app/main/ | Here are the main functionalities of our API. |
+| /app/main/calls/ | This package contains all the tests for our app and sample requests/ ressources. |
+| /app/main/__init__.py| Entry point for our app for different environments (to be implemented). |
+| /app/main/config.py| Here should be rightful declarations for the different environments (e.g. Test, Development, Production). |
+| /app/main/calls/get_channels.py | Here is where all the preprocessing with a direct Gateway call happens. |
+| /app/main/calls/get_requests.py | All the routing, using get_channels.py  |
+| /app/main/scripts/ | All scripts that are run once only. |
+| /app/main/scripts/delete_all_things.py | Deletes all things from our Gateway. |
+| /app/main/scripts/setup.py | Currently loading a dummy JSON; to set up all things initially. |
+| /app/test/ | This package contains all the tests for our app and sample requests/ ressources. |
+| /app/test/func/test_config.py | To test the different environment setups (to be set up correctly). |
+| /app/test/func/test_get_requests.py | To be implemented. |
+| /app/test/src | sample JSONs to test functionalities. |
+
+#### **Important Notation**
+*  Currently, get_channels.py is running with a local copy from Swagger. `(C:\\Users\\ilona\\Desktop\\SS19\\diva-e-praxisprojekt\\MQTTServer\\app\\test\\src\\CarosStructure.json)`. Please adjust!
+*  Same counts for `/floorplanurl` in get_requests.py.
+*  in manage.py, adjust `app.run(host='localhost', port=5000)` - localhost - with your own network address (IP4) - so that you can run expo, if needed!
+
+#### **IDEs**
+I would recommend **PyCharm** community edition. It is very powerful and free. 
+Behaves like Eclipse in Java and has some cool features like automatically activating venv and integrated interaction with git.  
+Controversial this IDE needs some time to get used to.  
+I would at least give a try.
+
+On other hand **VSCode** with installed python plugins is also a good choice.
+
 #### **How to create flask project**
 I would advice to have a look to the first link bellow in "useful links". 
 Bellow is written short sequence of steps taken from the manual.
@@ -36,45 +71,4 @@ Run:
 * `>>> db.session.commit()`
 * `>>> exit()`
 
-
-#### **Packages to install**
-Installation of packages: `$ pip install package-name` in commandline.
-
-Ofc "package-name" is just a placeholder which we should replace with given bellow package names. For example: `$ pip install flask`.
-* flask
-* paho-mqtt
-* flask-sqlalchemy
-* flask-migrate
-* flask-socketio -- this is temporal package, will be removed so there is no need to install it.
-
-#### **Description of directories**
-* app.py -- entry point of the entire app
-* app/__init__ -- Init files are intended to behave directory as a package 
-* app/mqtt_controller.py -- there should be all the things that are working with mqtt
-* app/models.py -- Just models. All JSON routine should be done there.
-* app/api/configurations.py -- routes for configurations (api/configuration/things)
-* app/api/states.py -- routes for states of things
-* app/api/tokens.py -- there should be some token routine
-
-#### **IDEs**
-I would recommend **PyCharm** community edition. It is very powerful and free. 
-Behaves like Eclipse in Java and has some cool features like automatically activating venv and integrated interaction with git.  
-Controversial this IDE needs some time to get used to.  
-I would at least give a try.
-
-On other hand **VSCode** with installed python plugins is also a good choice.
-
-#### **Useful links**
-
-* https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
-The first part of big flask tutorial. There is described the first setup of flask project.
-The important part is to create and manage own virtual environment, so project libraries will be isolated from the global
-python environment. venv order should be gitignored and doesn't appear in git.
-Also there is described how to install additional packages, through the pip.
-
-* https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xxiii-application-programming-interfaces-apis
-The last part of the given tutorial that describes how to write an API in flask.
-
-* https://randomnerdtutorials.com/esp8266-publishing-dht22-readings-with-mqtt-to-raspberry-pi/
-This link describes how flask interacts with MQTT.
   
