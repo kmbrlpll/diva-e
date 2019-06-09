@@ -1,8 +1,7 @@
 from flask import Flask
 import requests
 import json
-
-app = Flask(__name__)
+from flask import Blueprint
 
 # api calls to get states of a single channel (url_state) and a list with all the thing configs (url_things)
 url_things = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/configuration/'
@@ -10,10 +9,10 @@ headers = {
     'content-type': 'application/json',
     'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
 }
-
+idrouting = Blueprint('idrouting', __name__)
 
 # returns a json of all channels that represent an open window
-@app.route('/getids', methods=['GET'])
+@idrouting.route('/getids', methods=['GET'])
 def get_ids():
     things = requests.get(url_things, {}, headers=headers)
     things_dict = things.json()
@@ -29,6 +28,3 @@ def get_ids():
         all_channels["data"] = {"error_code" : things.status_code, "message" :"Sorry, nothing was found." }
     return json.dumps(all_channels)
 
-
-if __name__ == '__main__':
-    app.run(debug=True)

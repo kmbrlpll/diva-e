@@ -8,6 +8,7 @@ import subprocess
 
 from flask import Flask
 from MQTTServer.app.main.calls.get_requests import routing
+from MQTTServer.app.main.calls.test_api import idrouting
 
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
@@ -19,6 +20,7 @@ manager = Manager(app)
 def run():
     app = Flask(__name__)
     app.register_blueprint(routing)
+    app.register_blueprint(idrouting)
     if __name__ == "__main__":
         app.run()
 
