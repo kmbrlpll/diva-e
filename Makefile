@@ -8,7 +8,7 @@ system-packages:
 	sudo apt install python-pip -y
 
 python-packages:
-	pip install -r MQTTServer\requirements.txt
+	pip install -r businesslogic\requirements.txt
 
 install: system-packages python-packages
 

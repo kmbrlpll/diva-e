@@ -21,14 +21,16 @@ def get_channel_state(channel_id, thing_id):
 def get_channels(c_type):
     all_channels = {}
     r_things = requests.get(url_things, {}, headers=headers)
-    with open('C:\\Users\\ilona\\Desktop\\SS19\\diva-e-praxisprojekt\\MQTTServer\\app\\test\\src\\AndriysStructure.json') as json_file:
+    with open('C:\\Users\\ilona\\Desktop\\SS19\\diva-e-praxisprojekt\\businesslogic\\app\\test\\src\\CarosStructure.json') as json_file:
             data = json.load(json_file)
 
     for i in data["things"]:
         for thing in  i["channels"]:
-            channel_type = thing["id"]
+            channel_type = thing["properties"]["type"]
             if channel_type == c_type:
                 channel = {}
+                channel["x"] = int(thing["properties"]["x"])
+                channel["y"] = int(thing["properties"]["y"])
                 channel["type"] = channel_type
                 channel["thing_id"] = i["id"]
                 all_channels[thing["id"]] = channel

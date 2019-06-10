@@ -3,14 +3,14 @@ from flask import request
 from flask import send_file
 from flask import Blueprint
 import json
-from MQTTServer.app.main.calls.get_channels_andriy import get_channel_state, get_channels
+from businesslogic.app.main.calls.get_channels import get_channel_state, get_channels
 
 routing = Blueprint('routing', __name__)
 
 @routing.route('/floorplanurl', methods=['GET'])
 def get_floorplan_url():
     try:
-        with open('C:\\Users\\ilona\\Desktop\\SS19\\diva-e-praxisprojekt\\MQTTServer\\app\\test\\src\\test_office_config.json') as json_file:
+        with open('C:\\Users\\ilona\\Desktop\\SS19\\diva-e-praxisprojekt\\businesslogic\\app\\test\\src\\test_office_config.json') as json_file:
             data = json.load(json_file)
             floorplan_info = {
                 "image_url" : data["path"],
@@ -41,7 +41,8 @@ def get_open_windows():
         channel_state = get_channel_state(k,v["thing_id"])
         v["state"] = channel_state
         # throwing thing id and type out of the json because not relevant for us
-       
+        del open_windows[k]["thing_id"]
+        del open_windows[k]["type"]
         # currently the thing channels i setup in swagger have no states yet so this returns empty
         # comment out if you wanna see some results ;)
         if channel_state != "open":
@@ -52,12 +53,13 @@ def get_open_windows():
 
 @routing.route('/runningheaters', methods=['GET'])
 def get_running_heaters():
-    open_windows = get_channels("temperature")
+    open_windows = get_channels("heater")
 
     for k,v in open_windows.items():
         channel_state = get_channel_state(k,v["thing_id"])
         v["state"] = channel_state
-
+        del open_windows[k]["thing_id"]
+        del open_windows[k]["type"]
         #if float(channel_state) <= threshold:
            #del open_windows[k]
            # TODO: error handling in case state=null

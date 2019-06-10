@@ -5,12 +5,12 @@ from flask import current_app
 from flask_testing import TestCase
 
 from manage import app
-from MQTTServer.app.main.config import basedir
+from businesslogic.app.main.config import basedir
 
 
 class TestDevelopmentConfig(TestCase):
     def create_app(self):
-        app.config.from_object('MQTTServer.app.main.config.DevelopmentConfig')
+        app.config.from_object('businesslogic.app.main.config.DevelopmentConfig')
         return app
 
     def test_app_is_development(self):
@@ -24,7 +24,7 @@ class TestDevelopmentConfig(TestCase):
 
 class TestTestingConfig(TestCase):
     def create_app(self):
-        app.config.from_object('MQTTServer.app.main.config.TestingConfig')
+        app.config.from_object('businesslogic.app.main.config.TestingConfig')
         return app
 
     def test_app_is_testing(self):
@@ -37,7 +37,7 @@ class TestTestingConfig(TestCase):
 
 class TestProductionConfig(TestCase):
     def create_app(self):
-        app.config.from_object('MQTTServer.app.main.config.ProductionConfig')
+        app.config.from_object('businesslogic.app.main.config.ProductionConfig')
         return app
 
     def test_app_is_production(self):
