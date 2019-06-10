@@ -106,6 +106,14 @@ const SettingsStack = createStackNavigator({
  },
   {
     initialRouteName: 'SettingsInfo',
+    transitionConfig:  () => ({
+      screenInterpolator: props => {
+        if (props.scene.route.routeName === 'Settings') {
+         return fromTop(500);
+       }
+       return fromBottom(500);
+     },
+   }),
   },
 
 );
@@ -132,6 +140,14 @@ const WindowTrackerStack = createStackNavigator(
 },
   {
     initialRouteName: 'WindowTrackerInfo',
+    transitionConfig:  () => ({
+      screenInterpolator: props => {
+        if (props.scene.route.routeName === 'WindowRoomPlan') {
+         return fromTop(500);
+       }
+        return fromBottom(500);
+     },
+   }),
   },
 
 );
@@ -161,6 +177,14 @@ const HeatTrackerStack = createStackNavigator(
 
 {
   initialRouteName: 'HeatTrackerInfo',
+  transitionConfig:  () => ({
+    screenInterpolator: props => {
+      if (props.scene.route.routeName === 'HeatRoomPlan') {
+       return fromTop(500);
+      }
+      return fromBottom(500);
+   },
+ }),
 },
 );
 
