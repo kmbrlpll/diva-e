@@ -1,5 +1,5 @@
 import React, {Component } from "react";
-import { View, Text, StyleSheet, Button , Image , Dimensions} from "react-native";
+import { View, Text ,StyleSheet} from "react-native";
 
 const temperaturColorPalette = ['#0054ff' , '#04f06a' , '#f5b700' ,'#e80049','#ba212b'];
 
@@ -23,11 +23,28 @@ function ThermometherIndicator (props) {
 		<View 
         left= {(props.thermometerData.x / props.imageDimensions.x * 100).toString() + "%"} 
         top = {(props.thermometerData.y / props.imageDimensions.y * 100).toString() + "%"}
-        key = {props.thermometerData.id}
-        style ={props.style}  
+       	style ={styles.thermo}  
         backgroundColor = {assignThermometerColor(props.thermometerData.value)}
-        ><Text style={props.textStyle}>{props.thermometerData.value}°</Text></View>
+        ><Text style={styles.text}>{props.thermometerData.value}°</Text></View>
 	) 
 } 
 
 export default ThermometherIndicator;
+
+const styles = StyleSheet.create({
+  thermo: {
+    position: 'absolute', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex:1, 
+    width: 20, 
+    height: 20, 
+    borderRadius: 10,
+    marginLeft: -10, 
+    marginTop: -10,
+   },
+  text: {
+    color: 'white',
+    fontSize: 8,
+  }
+});

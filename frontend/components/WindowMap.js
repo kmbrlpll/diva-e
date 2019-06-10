@@ -2,6 +2,7 @@ import React, {Component } from "react";
 import { View, Text, StyleSheet, Button , Image , Dimensions} from "react-native";
 import {PulseIndicator} from 'react-native-indicators';
 import ThermometherIndicator from './ThermometherIndicator';
+import WindowIndicator from './WindowIndicator';
 
 
 const windowList = [
@@ -445,46 +446,26 @@ const thermometherList = [
   },
 ]
 
-const temperaturColorPalette = ['#0054ff' , '#04f06a' , '#f5b700' ,'#e80049','#ba212b']
-
 const xMax = 665; 
 const yMax = 828;
 const imageDimensions = { x : 665 , y : 828 };
-const red = '#FF3333';
-class WindowMap extends Component {
 
-  assignThermometerColor = (temperature) => {
-      let t = parseInt(temperature);
-      if(t <= 15) {
-        return temperaturColorPalette[0]; 
-      }else if(t > 15 && t <= 20) {
-        return temperaturColorPalette[1];
-      }else if(t > 20 && t <= 25) {
-        return temperaturColorPalette[2];
-      }else if(t > 25 && t <= 30) {
-        return temperaturColorPalette[3];
-      }else if(t > 30) {
-        return temperaturColorPalette[4];
-      }
-  }
+class WindowMap extends Component {
 
   render(){
     let windows = windowList.map( w => 
-        <View 
-        key={w.id} 
-        style={styles.dot} 
-        left= {(w.x / xMax * 100).toString() + "%"} 
-        top = {(w.y / yMax * 100).toString() + "%"}>
-        <PulseIndicator   
-        color = { w.isOpen ? red : 'transparent'} size = {10}/>
-       </View>); 
+      <WindowIndicator
+      key={w.id}
+      windowData = {w} 
+      imageDimensions = {imageDimensions} 
+      ></WindowIndicator>);
+        
     let thermomethers = thermometherList.map( t => <ThermometherIndicator 
       key = {t.id}
-      style ={styles.thermo} 
-      textStyle = {styles.thermoText}
       thermometerData = {t}
       imageDimensions = {imageDimensions}
       ></ThermometherIndicator>);
+    
     return(
       <View style = {styles.container}> 
           <Image source={require('../assets/divaeBuroPlanRaisedBrightness.png')} style={styles.image} resizeMode = 'stretch'/>
@@ -510,26 +491,5 @@ const styles = StyleSheet.create({
   image: {
     width: '100%', 
     height: '100%',
-  },
-  dot: {
-    position:'absolute',
-    marginTop: -5,
-    marginLeft: -5,
-    flex: 1,
-  }, 
-  thermo: {
-    position: 'absolute', 
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex:1, 
-    width: 20, 
-    height: 20, 
-    borderRadius: 10,
-    marginLeft: -10, 
-    marginTop: -10,
-   },
-  thermoText: {
-    color: 'white',
-    fontSize: 8,
   }
 });
