@@ -1,6 +1,7 @@
 from flask import Flask
 import requests
 import json
+from flask import Blueprint
 
 app = Flask(__name__)
 
@@ -11,9 +12,10 @@ headers = {
     'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
 }
 
+idrouting = Blueprint('idrouting', __name__)
 
 # returns a json of all channels that represent an open window
-@app.route('/getids', methods=['GET'])
+@idrouting.route('/getids', methods=['GET'])
 def get_ids():
     things = requests.get(url_things, {}, headers=headers)
     things_dict = things.json()

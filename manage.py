@@ -6,8 +6,8 @@ from businesslogic.app.main import create_app
 import subprocess
 
 from flask import Flask
-from businesslogic.app.main.calls.get_requests import routing
-from businesslogic.app.main.calls.test_api import idrouting
+from businesslogic.app.main.calls.api_calls import routing
+from businesslogic.app.main.test_api import idrouting
 
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
