@@ -4,13 +4,16 @@ from flask import send_file
 from flask import Blueprint
 import json
 from businesslogic.app.main.calls.functions import get_channel_state, get_channels
+from businesslogic.app.main.errors.handlers import InvalidRoute
 
 routing = Blueprint('routing', __name__)
 
-
-@routing.route('/')
-def index():
-        return 'Hi! You are at the root directory of the API.\n The API paths begin from /api/'
+try:
+        @routing.route('/')
+        def index():
+                return 'Hi! You are at the root directory of the API.\n The API paths begin from /api/'
+except Exception:
+                raise InvalidRoute('Route not found', error_code=410)
 
 
 # returns a json of all channels that represent an open window

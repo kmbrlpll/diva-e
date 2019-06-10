@@ -4,10 +4,12 @@ import unittest
 from flask_script import Manager
 from businesslogic.app.main import create_app
 import subprocess
+from flask import jsonify
 
 from flask import Flask
 from businesslogic.app.main.calls.api_calls import routing
 from businesslogic.app.main.test_api import idrouting
+from businesslogic.app.main.errors.handlers import InvalidRoute
 
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
@@ -20,6 +22,14 @@ def run():
     app = Flask(__name__)
     app.register_blueprint(routing)
     app.register_blueprint(idrouting)
+
+    @app.errorhandler(InvalidRoute)
+    def handle_invalid_usage(error):
+            response = jsonify(error.to_dict())
+            response.status_code = error.status_code
+            return response
+
+
     if __name__ == "__main__":
         app.run(host='localhost', port=5000)
 
