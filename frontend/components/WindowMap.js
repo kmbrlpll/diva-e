@@ -451,7 +451,7 @@ const red = '#FF3333';
 class WindowMap extends Component {
 
   assignThermometerColor = (temperature) => {
-      t = parseInt(temperature);
+      let t = parseInt(temperature);
       if(t <= 15) {
         return temperaturColorPalette[0]; 
       }else if(t > 15 && t <= 20) {
