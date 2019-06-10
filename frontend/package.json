@@ -4,7 +4,11 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest":{
+    "preset": "react-native"
   },
   "dependencies": {
     "expo": "^32.0.0",
@@ -25,7 +29,8 @@
     "yarn": "^1.15.2"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.0.0",
+    "jest": "^24.8.0"
   },
   "private": true
 }
