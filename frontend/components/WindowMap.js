@@ -1,6 +1,8 @@
 import React, {Component } from "react";
 import { View, Text, StyleSheet, Button , Image , Dimensions} from "react-native";
 import {PulseIndicator} from 'react-native-indicators';
+import ThermometherIndicator from './ThermometherIndicator';
+
 
 const windowList = [
   {
@@ -447,6 +449,7 @@ const temperaturColorPalette = ['#0054ff' , '#04f06a' , '#f5b700' ,'#e80049','#b
 
 const xMax = 665; 
 const yMax = 828;
+const imageDimensions = { x : 665 , y : 828 };
 const red = '#FF3333';
 class WindowMap extends Component {
 
@@ -475,14 +478,13 @@ class WindowMap extends Component {
         <PulseIndicator   
         color = { w.isOpen ? red : 'transparent'} size = {10}/>
        </View>); 
-    let thermomethers = thermometherList.map( t => 
-        <View 
-        left= {(t.x / xMax * 100).toString() + "%"} 
-        top = {(t.y / yMax * 100).toString() + "%"}
-        key = {t.id}
-        style ={styles.thermo}  
-        backgroundColor = {this.assignThermometerColor(t.value)}
-        ><Text style={styles.thermoText}>{t.value}°</Text></View>);
+    let thermomethers = thermometherList.map( t => <ThermometherIndicator 
+      key = {t.id}
+      style ={styles.thermo} 
+      textStyle = {styles.thermoText}
+      thermometerData = {t}
+      imageDimensions = {imageDimensions}
+      ></ThermometherIndicator>);
     return(
       <View style = {styles.container}> 
           <Image source={require('../assets/divaeBuroPlanRaisedBrightness.png')} style={styles.image} resizeMode = 'stretch'/>
