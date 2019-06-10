@@ -108,8 +108,7 @@ Even after closing the expo the base_url will stay thanks to redux-persist, so y
 
 
 
-
-
+DONT COMMIT manage.py
 
 
 
