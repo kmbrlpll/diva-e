@@ -16,15 +16,17 @@ export default class SideMenu extends Component {
      super(props);
      this.state = {
        currentComponent: 'Home',
+       settingsInfoScreenAlreadyPressed: false,
+       windowTrackerInfoScreenAlreadyPressed: false,
+       heatTrackerInfoScreenAlreadyPressed: false,
      };
    }
 
-    navigateToInfoScreen = ( route ) =>() => {
+    navigateToInfoScreen = ( route  ) =>() => {
       this.setState({currentComponent: route});
       const navigateAction = NavigationActions.navigate({
           routeName: route
       });
-
           this.props.navigation.dispatch(navigateAction);
     }
 
@@ -37,10 +39,22 @@ export default class SideMenu extends Component {
                </Image>
            </View>
            <View style={styles.mainNavLabelContainer}>
-               <TouchableOpacity onPress ={ this.navigateToInfoScreen('Home')}  style= {styles.singleLabelContainer}><EntypoIcon name= "home" style= {styles.icon} size= {25} color='#b0c4de'/><Text style={(currentComponent == 'Home') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Home</Text></TouchableOpacity>
-               <TouchableOpacity onPress ={ this.navigateToInfoScreen('SettingsInfo')} style= {styles.singleLabelContainer}><IoniconsIcon name= "ios-settings" style= {styles.icon}  size= {25}/><Text style={(currentComponent == 'SettingsInfo') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Settings</Text></TouchableOpacity>
-               <TouchableOpacity onPress ={ this.navigateToInfoScreen('WindowTrackerInfo')} style= {styles.singleLabelContainer}><AntDesignIcon name= "appstore1" style= {styles.icon}  size= {25}/><Text style={(currentComponent == 'WindowTrackerInfo') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Window Tracker</Text></TouchableOpacity>
-               <TouchableOpacity onPress ={ this.navigateToInfoScreen('HeatTrackerInfo')} style= {styles.singleLabelContainer}><FontAwesomeIcon name= "thermometer-4" style= {styles.icon}  size= {25}/><Text style={(currentComponent == 'HeatTrackerInfo') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Heat Tracker</Text></TouchableOpacity>
+               <TouchableOpacity onPress ={ this.navigateToInfoScreen('Home' )}  style= {styles.singleLabelContainer}>
+                  <EntypoIcon name= "home" style= {styles.icon} size= {25} color='#b0c4de'/>
+                  <Text style={(currentComponent == 'Home') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Home</Text>
+                </TouchableOpacity>
+               <TouchableOpacity onPress ={ this.navigateToInfoScreen('SettingsInfo')} style= {styles.singleLabelContainer}>
+                  <IoniconsIcon name= "ios-settings" style= {styles.icon}  size= {25}/>
+                  <Text style={(currentComponent == 'SettingsInfo') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Settings</Text>
+                </TouchableOpacity>
+               <TouchableOpacity onPress ={ this.navigateToInfoScreen('WindowTrackerInfo')} style= {styles.singleLabelContainer}>
+                  <AntDesignIcon name= "appstore1" style= {styles.icon}  size= {25}/>
+                  <Text style={(currentComponent == 'WindowTrackerInfo') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Window Tracker</Text>
+               </TouchableOpacity>
+               <TouchableOpacity onPress ={ this.navigateToInfoScreen('HeatTrackerInfo')} style= {styles.singleLabelContainer}>
+                  <FontAwesomeIcon name= "thermometer-4" style= {styles.icon}  size= {25}/>
+                  <Text style={(currentComponent == 'HeatTrackerInfo') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Heat Tracker</Text>
+                </TouchableOpacity>
            </View>
        </View>
 

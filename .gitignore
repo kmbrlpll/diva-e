@@ -15,6 +15,7 @@
 /.idea
 .project
 .classpath
+.vscode
 .c9/
 *.launch
 .settings/
@@ -36,9 +37,12 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+Dockerfile
+__pycache__
 
 # virutal environment of Python
 /MQTT-Server/venv
+venv/
 
 # System Files
 .DS_Store
