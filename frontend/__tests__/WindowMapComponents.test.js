@@ -1,10 +1,9 @@
-import React from 'react'; 
+import React from 'react';
 import WindowIndicator from '../components/WindowIndicator.js';
 import ThermometherIndicator from '../components/ThermometherIndicator.js';
 
 import renderer from 'react-test-renderer';
 jest.useFakeTimers(); 
-jest.mock('react-native-indicators', () => 'PulseIndicator');
 
 const imageDimensions = { x : 665 , y : 828 };
 
