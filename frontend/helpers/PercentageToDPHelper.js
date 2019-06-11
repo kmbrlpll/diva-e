@@ -16,4 +16,5 @@ return PixelRatio.roundToNearestPixel(screenHeight * elemHeight / 100);
 export {
   widthPercentageToDP,
   heightPercentageToDP
+
 };

@@ -84,9 +84,31 @@ images should only be pushed once as git cannot merge images
 
 
 
+CONNECTING EXPO WITH YOUR LOCAL FLASK BACKEND
+
+Find manage.py in our diva-e-root folder and edit the run method and put your ip address instead of YOUR_IP_ADDRESS. 
+
+@manager.command
+def run():
+    app = Flask(__name__)
+    app.register_blueprint(routing)
+    app.register_blueprint(idrouting)
+    if __name__ == "__main__":
+        app.run(host='YOUR_IP_ADDRESS', port=5000)
+
+
+Then go to the Terminal and type "make run". 
+
+Open ANOTHER terminal and go to your frontend folder and do yarn expo start --tunnel to start expo on your phone. 
+
+Go to the SettingsScreen and type in the server address textfield  "http://YOUR_IP_ADDRESS:5000". You actually dont need to put anything in the port textfield.. those are both string
+that become concatenated anyway. The settingsscreen is responsible to create the base_url of the backend. 
+
+Even after closing the expo the base_url will stay thanks to redux-persist, so you don't have to type in the url again and again. 
 
 
 
+DONT COMMIT manage.py
 
 
 
