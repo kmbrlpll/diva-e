@@ -9,8 +9,7 @@ from flask import jsonify
 from flask import Flask
 from businesslogic.app.main.calls.api_calls import routing
 from businesslogic.app.main.test_api import idrouting
-from businesslogic.app.main.errors.handlers import InvalidRoute
-
+from businesslogic.app.main.errors.handlers import InvalidUsage
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
 
@@ -22,12 +21,12 @@ def run():
     app = Flask(__name__)
     app.register_blueprint(routing)
     app.register_blueprint(idrouting)
-
-    @app.errorhandler(InvalidRoute)
+    
+    @app.errorhandler(InvalidUsage)
     def handle_invalid_usage(error):
-            response = jsonify(error.to_dict())
-            response.status_code = error.status_code
-            return response
+        response = jsonify(error.to_dict())
+        response.status_code = error.status_code
+        return response
 
 
     if __name__ == "__main__":

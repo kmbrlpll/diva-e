@@ -13,8 +13,9 @@ python-packages:
 install: system-packages python-packages
 
 tests:
-	python manage.py test
-
+	python -m pytest --ignore=frontend  -vv
+	
+#python manage.py test
 # enterenv:
 #     ( \
 #        source path/to/virtualenv/bin/activate; \
