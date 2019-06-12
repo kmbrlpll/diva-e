@@ -4,7 +4,15 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.js$": "/home/iliav/smart_office_project/diva-e-praxisprojekt/frontend/node_modules/react-native/jest/preprocessor.js"
+    },
+    "moduleNameMapper": {}
   },
   "dependencies": {
     "@nozbe/watermelondb": "^0.12.3",
@@ -31,17 +39,22 @@
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.9.1",
     "react-navigation-transitions": "^1.0.10",
+
+    "react-test-renderer": "^16.8.6",
+
     "react-redux": "6.0.1",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
     "redux-saga": "^1.0.2",
     "reselect": "^4.0.0",
+
     "wrappy": "^1.0.2",
     "yarn": "^1.15.2"
   },
   "devDependencies": {
+    "jest": "^24.8.0",
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "babel-preset-expo": "^5.0.0"
-  },
+    },
   "private": true
 }

@@ -1,6 +1,9 @@
 import React, {Component } from "react";
 import { View, Text, StyleSheet, Button , Image , Dimensions} from "react-native";
 import {PulseIndicator} from 'react-native-indicators';
+import ThermometherIndicator from './ThermometherIndicator';
+import WindowIndicator from './WindowIndicator';
+
 
 const windowList = [
   {
@@ -327,162 +330,125 @@ const thermometherList = [
     x: 85,
     y: 734,
     value: '26', 
-    type: 'thermomether',
   },
   {
     id: 2, 
     x: 196,
     y: 734,
     value: '28', 
-    type: 'thermomether',
   },
   {
     id: 3, 
     x: 310,
     y: 734,
     value: '18', 
-    type: 'thermomether',
   },
   {
     id: 4, 
     x: 425,
     y: 734,
     value: '10', 
-    type: 'thermomether',
   },
   {
     id: 5, 
     x: 558,
     y: 716,
     value: '23', 
-    type: 'thermomether',
   },
   {
     id: 6, 
     x: 575,
     y: 585,
     value: '13', 
-    type: 'thermomether',
   },
   {
     id: 7, 
     x: 575,
     y: 469,
     value: '17', 
-    type: 'thermomether',
   },
   {
     id: 8, 
     x: 575,
     y: 371,
     value: '20', 
-    type: 'thermomether',
   },
   {
     id: 9, 
     x: 575,
     y: 305,
     value: '27', 
-    type: 'thermomether',
   },
   {
     id: 10, 
     x: 575,
     y: 223,
     value: '31', 
-    type: 'thermomether',
   },
   {
     id: 11, 
     x: 575,
     y: 97,
     value: '13', 
-    type: 'thermomether',
   },
   {
     id: 12, 
     x: 416,
     y: 81,
     value: '15', 
-    type: 'thermomether',
   },
   {
     id: 13, 
     x: 390,
     y: 208,
     value: '26', 
-    type: 'thermomether',
   },
   {
     id: 14, 
     x: 385,
     y: 297,
     value: '33', 
-    type: 'thermomether',
   },
   {
     id: 15, 
     x: 262,
     y: 343,
     value: '19', 
-    type: 'thermomether',
   },
   {
     id: 16, 
     x: 162,
     y: 343,
     value: '23', 
-    type: 'thermomether',
   },
   {
     id: 17, 
     x: 69,
     y: 343,
     value: '24', 
-    type: 'thermomether',
   },
 ]
 
-const temperaturColorPalette = ['#0054ff' , '#04f06a' , '#f5b700' ,'#e80049','#ba212b']
-
 const xMax = 665; 
 const yMax = 828;
-const red = '#FF3333';
-class WindowMap extends Component {
+const imageDimensions = { x : 665 , y : 828 };
 
-  assignThermometerColor = (temperature) => {
-      t = parseInt(temperature);
-      if(t <= 15) {
-        return temperaturColorPalette[0]; 
-      }else if(t > 15 && t <= 20) {
-        return temperaturColorPalette[1];
-      }else if(t > 20 && t <= 25) {
-        return temperaturColorPalette[2];
-      }else if(t > 25 && t <= 30) {
-        return temperaturColorPalette[3];
-      }else if(t > 30) {
-        return temperaturColorPalette[4];
-      }
-  }
+class WindowMap extends Component {
 
   render(){
     let windows = windowList.map( w => 
-        <View 
-        key={w.id} 
-        style={styles.dot} 
-        left= {(w.x / xMax * 100).toString() + "%"} 
-        top = {(w.y / yMax * 100).toString() + "%"}>
-        <PulseIndicator   
-        color = { w.isOpen ? red : 'transparent'} size = {10}/>
-       </View>); 
-    let thermomethers = thermometherList.map( t => 
-        <View 
-        left= {(t.x / xMax * 100).toString() + "%"} 
-        top = {(t.y / yMax * 100).toString() + "%"}
-        key = {t.id}
-        style ={styles.thermo}  
-        backgroundColor = {this.assignThermometerColor(t.value)}
-        ><Text style={styles.thermoText}>{t.value}°</Text></View>);
+      <WindowIndicator
+      key={w.id}
+      windowData = {w} 
+      imageDimensions = {imageDimensions} 
+      ></WindowIndicator>);
+        
+    let thermomethers = thermometherList.map( t => <ThermometherIndicator 
+      key = {t.id}
+      thermometerData = {t}
+      imageDimensions = {imageDimensions}
+      ></ThermometherIndicator>);
+    
     return(
       <View style = {styles.container}> 
           <Image source={require('../assets/divaeBuroPlanRaisedBrightness.png')} style={styles.image} resizeMode = 'stretch'/>
@@ -508,26 +474,5 @@ const styles = StyleSheet.create({
   image: {
     width: '100%', 
     height: '100%',
-  },
-  dot: {
-    position:'absolute',
-    marginTop: -5,
-    marginLeft: -5,
-    flex: 1,
-  }, 
-  thermo: {
-    position: 'absolute', 
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex:1, 
-    width: 20, 
-    height: 20, 
-    borderRadius: 10,
-    marginLeft: -10, 
-    marginTop: -10,
-   },
-  thermoText: {
-    color: 'white',
-    fontSize: 8,
   }
 });

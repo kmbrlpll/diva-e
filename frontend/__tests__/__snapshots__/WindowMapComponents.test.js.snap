@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Thermomether indicator renders correctly 1`] = `
+<View
+  backgroundColor="#e80049"
+  left="12.781954887218044%"
+  style={
+    Object {
+      "alignItems": "center",
+      "borderRadius": 10,
+      "flex": 1,
+      "height": 20,
+      "justifyContent": "center",
+      "marginLeft": -10,
+      "marginTop": -10,
+      "position": "absolute",
+      "width": 20,
+    }
+  }
+  top="88.64734299516908%"
+>
+  <Text
+    style={
+      Object {
+        "color": "white",
+        "fontSize": 8,
+      }
+    }
+  >
+    26
+    °
+  </Text>
+</View>
+`;
+
+exports[`Window indicator renders correctly 1`] = `
+<View
+  left="9.624060150375941%"
+  style={
+    Object {
+      "flex": 1,
+      "marginLeft": -5,
+      "marginTop": -5,
+      "position": "absolute",
+    }
+  }
+  top="96.49758454106279%"
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      animating={true}
+      animationDuration={1200}
+      animationEasing={[Function]}
+      color="#FF3333"
+      interaction={true}
+      renderComponent={[Function]}
+      style={
+        Object {
+          "height": 10,
+          "width": 10,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "#FF3333",
+              "borderRadius": 5,
+              "height": 10,
+              "opacity": 0.5,
+              "transform": Array [
+                Object {
+                  "scale": 0.4,
+                },
+              ],
+              "width": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "#FF3333",
+              "borderRadius": 5,
+              "height": 10,
+              "opacity": 1,
+              "transform": Array [
+                Object {
+                  "scale": 0.4,
+                },
+              ],
+              "width": 10,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;
