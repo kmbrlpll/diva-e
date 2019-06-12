@@ -10,14 +10,16 @@ headers = {
 
 
 def get_thing(id):
+    
     thing = requests.get(url + "configuration/things/" + id, {}, headers=headers).json()
+    print(thing)
     return thing
 
 def main():
     tokens = []
     #error handling here!
 
-    with open('../../test/src/test_office_config.json') as json_file:
+    with open('businesslogic\\app\\test\\src\\test_office_config.json') as json_file:
         data = json.load(json_file)
         all_things_from_config = data["things"]
 
