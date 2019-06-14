@@ -3,20 +3,19 @@ from flask import request
 from flask import send_file
 from flask import Blueprint
 import json
-from flask import jsonify
 from businesslogic.app.main.errors.handlers import InvalidUsage
-from businesslogic.app.main.calls.functions import get_channel_state, get_channels, stringify_list
+from businesslogic.app.main.calls.functions import get_channel_state, get_channels, stringify_list, get_room_temperatures
 
 routing = Blueprint('routing', __name__)
 
 acceptable_failure_rate = 0.1
 accepted_channel_types = ["temperature", "heater", "window"]
 error_data = {"error_code" : 404, "Message" : "Not found."}
-
+threshold = 10.0
 
 @routing.route('/')
 def index():
-    return jsonify({"dummy":"dummy-value"})
+    return json.dumps({"dummy":"dummy-value"})
 
 
 @routing.route('/getfloorplan', methods=['GET'])
@@ -86,27 +85,35 @@ def get_open_windows():
 
 
 @routing.route('/getallroomtemperatures', methods=['GET'])
-def get_room_temperatures():
-
-    all_room_temperatures = {}
-    room_temperatures = get_channels("temperature")
-    return json.dumps(room_temperatures)
+def get_all_room_temperatures():
+    data = get_room_temperatures();
+    return json.dumps(data)
 
 
-#TODO! Struktur für things festlegen und dann temperature minus heater!
-#create lookup dict with [{room : temp}, {room : temp}, {room : temp}]
-#loop over each heater and calculate the difference to its room temp to check if on
 @routing.route('/runningheaters', methods=['GET'])
 def get_running_heaters():
-    open_windows = get_channels("heater")
-
-    for k,v in open_windows.items():
-        channel_state = get_channel_state(k,v["thing_id"])
-        v["state"] = channel_state
-        del open_windows[k]["thing_id"]
-        del open_windows[k]["type"]
-        #if float(channel_state) <= threshold:
-           #del open_windows[k]
-           # TODO: error handling in case state=null
-    return json.dumps(open_windows)
+    
+    all_heaters = get_channels("heater")
+    temps = get_room_temperatures()
+    
+    room_temp_dict = {}
+    for temp_channel in temps["data"]:
+        room_temp_dict[temp_channel["room"]] = temp_channel["state"]
+        
+   #loop over all heater channels
+    for k,v in all_heaters["data"].items():
+        print(k + ": " + str(v))
+        #look up room temperature in the room the heater is in
+        heater_room = v["room"]
+        room_temperature = room_temp_dict[heater_room]
+        heater_temp = get_channel_state(k,v["thing_id"])
+        
+        #if the difference between heater temperature and room temperature exceeds a certain
+        #threshold,leave in dict, else delete heater from dict
+        if abs(room_temperature - heater_temp) > threshold:
+            v["state"] = heater_temp
+        else:
+            del all_heaters["data"][k]   
+    
+    return json.dumps(all_heaters)
 

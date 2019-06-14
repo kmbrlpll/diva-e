@@ -11,11 +11,6 @@ headers = {
 
 accepted_channel_types = ["temperature", "heater", "window"]
 error_data = {"error_code" : 404, "Message" : "Not found."}
-def stringify_list(l):
-    s = ""
-    for item in l:
-        s += ", " + item
-    return s[2:]
 
 
 def get_all_things():
@@ -24,6 +19,24 @@ def get_all_things():
     data["status"] = things.status_code
     data["data"] = things.json()
     return data
+
+
+def stringify_list(l):
+    s = ""
+    for item in l:
+        s += ", " + item
+    return s[2:]
+
+def get_room_temperatures():
+    room_temperatures = get_channels("temperature")
+    temperatures_data = []
+   
+    for k,v in room_temperatures["data"].items():
+        v["state"] = get_channel_state(k,v["thing_id"])
+        temperatures_data.append(v)
+        
+    room_temperatures["data"] = temperatures_data
+    return room_temperatures
 
 
 def get_thing(id):
@@ -49,6 +62,7 @@ def get_channels(c_type):
                     channel = {}
                     channel["x"] = int(thing["properties"]["x"])
                     channel["y"] = int(thing["properties"]["y"])
+                    channel["room"] = thing["properties"]["room"]
                     channel["type"] = channel_type
                     channel["thing_id"] = i["id"]
                     all_channels[thing["id"]] = channel
