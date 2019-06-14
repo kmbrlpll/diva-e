@@ -1,10 +1,18 @@
 #include <FS.h>                   //this needs to be first, or it all crashes and burns...
 
-#include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
+#if defined(ESP32)
+#include <SPIFFS.h>
+#include <WiFi.h>
+#include <WebServer.h>
+
+#elif(ESP8266)
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#endif
 
 //needed for library
 #include <DNSServer.h>
-#include <ESP8266WebServer.h>
 #include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager
 
 #include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
@@ -130,6 +138,7 @@ void setup() {
     Serial.println("mounted file system");
     if (SPIFFS.exists("/config.json")) {
       //file exists, reading and loading
+      //SPIFFS.remove("/config.json");
       Serial.println("reading config file");
       File configFile = SPIFFS.open("/config.json", "r");
       if (configFile) {
@@ -207,7 +216,10 @@ void setup() {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
     //reset and try again, or maybe put it to deep sleep
-    ESP.reset();
+    //For ESP8266
+    //ESP.reset();
+    //For ESP32
+    ESP.restart();
     delay(5000);
   }
 

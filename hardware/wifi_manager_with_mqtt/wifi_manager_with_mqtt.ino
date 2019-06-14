@@ -1,6 +1,5 @@
 #include <FS.h>                   //this needs to be first, or it all crashes and burns...
-
-#include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
+#include <ESP8266WiFi.h>
 
 //needed for library
 #include <DNSServer.h>
@@ -23,7 +22,7 @@ int switchReed = 16;
 char* gateway_topic = "things/data/";
 
 //define your default values here, if there are different values in config.json, they are overwritten.
-char mqtt_server[60];
+char mqtt_server[60] = "diva-e-iot-lab.northeurope.cloudapp.azure.com";
 char mqtt_port[6] = "1883";
 char thing_id[20] = "thing";
 char token[34] = "YOUR_TOKEN";
