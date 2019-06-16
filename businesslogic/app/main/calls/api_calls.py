@@ -57,11 +57,16 @@ def get_floorplan_dimensions():
 def get_open_windows():
 
     all_windows = get_channels("window")
+    print(all_windows)
     number_of_total_windows = len(all_windows["data"])
     unreachable_windows = []
 
     for k,v in all_windows["data"].items():
-        channel_state = get_channel_state(k,v["thing_id"])
+        print("***")
+        print(k)
+        print(v["thing_id"])
+        channel_state = get_channel_state(k, v["thing_id"])
+        print(channel_state)
         v["state"] = channel_state
         # throwing thing id and type out of the json because not relevant for us
         del all_windows["data"][k]["thing_id"]
@@ -74,12 +79,12 @@ def get_open_windows():
                 unreachable_windows.append(k)
                 all_windows["data"][k] = {}
 
-        if len(unreachable_windows)/number_of_total_windows > acceptable_failure_rate:
-            all_windows["status"] = 404
-            all_windows["data"] = error_data
-        elif len(unreachable_windows) > 0 :
-            s = stringify_list(unreachable_windows)
-            all_windows["warning"] = "The states of the following windows could not be found: " + s
+            if len(unreachable_windows)/number_of_total_windows > acceptable_failure_rate:
+                all_windows["status"] = 404
+                all_windows["data"] = error_data
+            elif len(unreachable_windows) > 0 :
+                s = stringify_list(unreachable_windows)
+                all_windows["warning"] = "The states of the following windows could not be found: " + s
 
     return json.dumps(all_windows)
 
@@ -92,14 +97,14 @@ def get_all_room_temperatures():
 
 @routing.route('/runningheaters', methods=['GET'])
 def get_running_heaters():
-    
+
     all_heaters = get_channels("heater")
     temps = get_room_temperatures()
-    
+
     room_temp_dict = {}
     for temp_channel in temps["data"]:
         room_temp_dict[temp_channel["room"]] = temp_channel["state"]
-        
+
    #loop over all heater channels
     for k,v in all_heaters["data"].items():
         print(k + ": " + str(v))
@@ -107,14 +112,14 @@ def get_running_heaters():
         heater_room = v["room"]
         room_temperature = room_temp_dict[heater_room]
         heater_temp = get_channel_state(k,v["thing_id"])
-        
+
         #if the difference between heater temperature and room temperature exceeds a certain
         #threshold,leave in dict, else delete heater from dict
-        
+
         if abs(room_temperature - heater_temp) > threshold:
             v["state"] = heater_temp
         else:
-            del all_heaters["data"][k] 
+            del all_heaters["data"][k]
 
 
     return json.dumps(all_heaters)
