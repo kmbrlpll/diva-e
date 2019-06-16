@@ -110,10 +110,12 @@ def get_running_heaters():
         
         #if the difference between heater temperature and room temperature exceeds a certain
         #threshold,leave in dict, else delete heater from dict
+        
         if abs(room_temperature - heater_temp) > threshold:
             v["state"] = heater_temp
         else:
-            del all_heaters["data"][k]   
-    
+            del all_heaters["data"][k] 
+
+
     return json.dumps(all_heaters)
 
