@@ -5,7 +5,7 @@ import json
 url = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/'
 
 headers = {
-    'content-type': 'application/json',
+    'accept': 'application/json',
     'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
 }
 
@@ -30,11 +30,11 @@ def stringify_list(l):
 def get_room_temperatures():
     room_temperatures = get_channels("temperature")
     temperatures_data = []
-   
+
     for k,v in room_temperatures["data"].items():
         v["state"] = get_channel_state(k,v["thing_id"])
         temperatures_data.append(v)
-        
+
     room_temperatures["data"] = temperatures_data
     return room_temperatures
 
@@ -74,10 +74,22 @@ def get_channels(c_type):
 
 
 def get_channel_state(channel_id, thing_id):
-    r_state = requests.get(url + "state-resource/" + thing_id + "/channels/" + channel_id, {}, headers=headers)
+
+    print("channel id:")
+    print(channel_id)
+    print("thing id:")
+    print(thing_id)
+
+    req_url = url + "states/things/" + thing_id + "/channels/" + channel_id
+
+    print(req_url)
+    r_state = requests.get(req_url, {}, headers=headers)
 
     if r_state.status_code == 404:
-        return None
+        state = None
     else:
         state = r_state.json()["state"]["reported"]
-        return state
+
+    print(state)
+
+    return state
