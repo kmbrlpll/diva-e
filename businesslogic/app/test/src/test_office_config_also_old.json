@@ -1,0 +1,14 @@
+{
+  "path" : "path/to/floorplan.jpg",
+  "things" : [
+
+    {
+      "id" : "f_01",
+       "channels":{
+
+          "t_inside" : {"x":"10","y":"15","type":"temperature"},
+          "t_inside" : {"x":"10","y":"15","type":"temperature"},
+          "door":{"x":"15","y":"25","type":"temperature"}
+           }
+    }
+  ]

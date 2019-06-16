@@ -7,8 +7,8 @@
       "id" : "test_thing_12_06",
        "channels":{
           "window" : {"x" : 160, "y" : 390, "type" : "window", "room": "htw"},
-          "temperature" : {"x" : 360, "y" : 310, "type" : "humidity", "room": "htw"},
-          "humidity" : {"x" : 150, "y" : 530, "type" : "temperature", "room": "htw"}
+          "humidity" : {"x" : 360, "y" : 310, "type" : "humidity", "room": "htw"},
+          "temperature" : {"x" : 150, "y" : 530, "type" : "temperature", "room": "htw"}
            }
     }
   ]
