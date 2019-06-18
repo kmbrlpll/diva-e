@@ -8,11 +8,37 @@ import {
   loadRoomMap
 } from '../redux-saga/actions.js';
 
+import { Error } from '../components/Error.js';
+import { Loader } from '../components/Loader.js';
+
 class WindowRoomPlanScreen extends Component {
   componentDidMount() {
     let { dispatch } = this.props;
     dispatch(loadOpenWindows());
     dispatch(loadRoomMap());
+  }
+	
+  function renderItem() {
+	  if (this.state.fetching_open_windows || this.state.fetching_room_plan){
+		  return (
+			  <Loader></Loader>
+		  );
+	  }
+	  else if (this.state.error_message_windows){
+		  return (
+			  <Error error={this.state.error_message_windows}></Error>
+		  );
+	  }
+	  else if (this.state.error_message_room_plan){
+		  return (
+			  <Error error={this.state.error_message_room_plan}></Error>
+		  );
+	  }
+	  else {
+		  return (
+			  <WindowMap type='window' ></WindowMap>
+		  );
+	  }
   }
 
   render(){
@@ -42,8 +68,8 @@ class WindowRoomPlanScreen extends Component {
       <View style = { styles.container } >
         <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
             <Icon name='ios-arrow-dropup-circle' size= {40}/>
+		    {this.renderItem()}
         </TouchableOpacity>
-        <WindowMap type='window' ></WindowMap>
       </View>
     );
   }

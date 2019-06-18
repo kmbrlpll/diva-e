@@ -5,6 +5,8 @@ import {NavigationActions} from 'react-navigation';
 
 import { widthPercentageToDP, heightPercentageToDP } from '../helpers/PercentageToDPHelper.js';
 
+import { InfoContainer } from '../components/InfoContainer.js';
+
 class SettingsInfoScreen extends Component {
 
        navigateFromInfoToFunctionalScreen = ( route ) =>() => {
@@ -19,6 +21,7 @@ class SettingsInfoScreen extends Component {
       <View style = {styles.container}>
           <TouchableOpacity style = {styles.bottomButton} onPress= {this.navigateFromInfoToFunctionalScreen('Settings')}>
               <Icon name='ios-arrow-dropdown-circle' size= {80}/>
+			  <InfoContainer title='Settings Screen' info='Setting for...'></InfoContainer>
            </TouchableOpacity>
       </View>
     );
