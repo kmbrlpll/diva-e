@@ -17,8 +17,10 @@ manager = Manager(app)
 
 @manager.command
 def run():
-    app = Flask(__name__)
     app.register_blueprint(routing)
+    #print(app.config.get("URL"))
+    #print(app.config.get("CONTENT"))
+    app.app_context().push()
     
     @app.errorhandler(InvalidUsage)
     def handle_invalid_usage(error):
