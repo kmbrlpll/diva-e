@@ -1,20 +1,15 @@
 from flask import Flask
 from .config import config_by_name
-from os.path import join, dirname
-from os import environ
-from dotenv import load_dotenv
-from flask import Flask, current_app
 
+url_state = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/states/things/'
+url_things = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/configuration/'
+headers = {
+    'content-type': 'application/json',
+    'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
+}
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(config_by_name[config_name])
 
-app = Flask(__name__)
-def create_app(config_name): 
-    with app.app_context(): 
-        app.config.update(
-            URL = environ.get("URL_API"), 
-            PASSWORD = environ.get("X_API_KEY"),
-            CONTENT= environ.get("CONTENT_TYPE"))
-        app.config.from_object(config_by_name[config_name])
     return app

@@ -1,20 +1,12 @@
 import requests
 import json
-from os.path import join, dirname
-from os import environ
-from dotenv import load_dotenv
-from flask import Flask, current_app
-
-
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
 
 # api calls to get states of a single channel (url_state) and a list with all the thing configs (url_things)
-url = environ.get("URL_API")
+url = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/'
 
 headers = {
-    'accept': environ.get("CONTENT"),
-    'x-api-key': environ.get("X_API_KEY")
+    'accept': 'application/json',
+    'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
 }
 
 accepted_channel_types = ["temperature", "heater", "window"]
