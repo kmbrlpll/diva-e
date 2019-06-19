@@ -28,7 +28,7 @@ def run():
 
 
     if __name__ == "__main__":
-        app.run(host='localhost', port=5000)
+        app.run(host='172.29.14.2', port=5000)
 
 @manager.command
 def setup():
