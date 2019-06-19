@@ -72,7 +72,7 @@ def get_open_windows():
         del all_windows["data"][k]["thing_id"]
         del all_windows["data"][k]["type"]
 
-        if channel_state == "closed":
+        if channel_state.lower() == "closed":
            del all_windows["data"][k]
         else:
             if channel_state == None:
