@@ -1,11 +1,18 @@
 import requests
 import json
 from datetime import datetime
+from os.path import join, dirname
+from os import environ
+from dotenv import load_dotenv
 
-url = "http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080/api/"
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+url = environ.get("URL_API")
 headers = {
-'content-type': 'application/json',
-'x-api-key': '44W8wJoAgaMMyeVxwo7GDanwtsMZbXXB'
+'content-type': environ.get("CONTENT_TYPE"),
+'x-api-key': environ.get("X_API_KEY")
 }
 
 
