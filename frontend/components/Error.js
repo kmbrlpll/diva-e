@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 export default class Error extends React.Component {
-
-    renderMessage = () => {
-		if(this.props.error_code == null){
+	
+	renderMessage = () => {
+		if(this.props.error.error_code == null){
 			return(
 				<Text style={styles.code}>ERROR</Text>
                 <Text style={styles.message}>An error happened, please try again!</Text>
 			);
-		} else if(this.props.error_code == undefined) {
+		} else if(this.props.error.error_code == undefined) {
 			return (
 				<Text style={styles.code}>ERROR</Text>
                 <Text style={styles.message}>An error happened, please try again!</Text>
 			);
 		} else {
 			return(
-				<Text style={styles.code}>{this.props.error_code}</Text>
-                <Text style={styles.message}>{this.props.message}</Text>
+				<Text style={styles.code}>{this.props.error.error_code}</Text>
+                <Text style={styles.message}>{this.props.error.message}</Text>
 			);
 		}
     }

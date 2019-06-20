@@ -9,6 +9,9 @@ import {
   loadRoomMap,
 } from '../redux-saga/actions.js';
 
+import { Error } from '../components/Error.js';
+import { Loader } from '../components/Loader.js';
+
 class HeatRoomPlanScreen extends Component {
   componentDidMount() {
     let {dispatch} = this.props;
@@ -16,6 +19,34 @@ class HeatRoomPlanScreen extends Component {
     dispatch(loadTurnedOnHeaters());
     dispatch(loadRoomTemperatures());
  }
+	
+  function renderItem() {
+	  if (this.state.fetching_turned_on_heaters || this.state.fetching_room_temperatures || this.state.fetching_room_plan){
+		  return (
+			  <Loader></Loader>
+		  );
+	  }
+	  else if (this.state.error_message_heaters){
+		  return (
+			  <Error error={this.state.error_message_heaters}></Error>
+		  );
+	  }
+	  else if (this.state.error_message_room_plan){
+		  return (
+			  <Error error={this.state.error_message_room_plan}></Error>
+		  );
+	  }
+	  else if (this.state.error_message_room_temperatures) { 
+		  return (
+			  <Error error={this.state.error_message_room_temperatures}></Error>
+		  );
+	  }
+	  else {
+		  return (
+			  <WindowMap type='thermometer' ></WindowMap>
+		  );
+	  }
+  }
 
   render(){
     let {room_plan, room_temperatures, turned_on_heaters, error_message_heaters, error_message_room_plan, error_message_room_temperatures} = this.props;
@@ -46,8 +77,8 @@ class HeatRoomPlanScreen extends Component {
       <View style = { styles.container } >
           <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
               <Icon name='ios-arrow-dropup-circle' size= {40}/>
+			  {this.renderItem()}
           </TouchableOpacity>
-          <WindowMap type='thermometer' ></WindowMap>
       </View>
     );
   }

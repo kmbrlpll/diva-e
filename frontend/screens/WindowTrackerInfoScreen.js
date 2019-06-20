@@ -5,6 +5,7 @@ import {NavigationActions} from 'react-navigation';
 
 import { widthPercentageToDP, heightPercentageToDP } from '../helpers/PercentageToDPHelper.js';
 
+import { InfoContainer } from '../components/InfoContainer.js';
 
 class WindowTrackerInfoScreen extends Component {
 
@@ -20,6 +21,7 @@ class WindowTrackerInfoScreen extends Component {
       <View style = { styles.container } >
           <TouchableOpacity style = {styles.bottomButton} onPress= {this.navigateFromInfoToFunctionalScreen('WindowRoomPlan')}>
               <Icon name='ios-arrow-dropdown-circle' size= {80}/>
+			  <InfoContainer title='Window Tracker' info='Look for open windows...'></InfoContainer>
           </TouchableOpacity>
       </View>
     );

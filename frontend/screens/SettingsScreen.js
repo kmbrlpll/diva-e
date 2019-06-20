@@ -9,6 +9,9 @@ import {
   saveSettings
 } from '../redux-saga/actions.js';
 
+import { Error } from '../components/Error.js';
+import { Loader } from '../components/Loader.js';
+
 class SettingsScreen extends Component {
 
 
@@ -24,6 +27,8 @@ class SettingsScreen extends Component {
 
    console.log(this.props.saved_server_address);
  }
+	
+
 
 componentDidUpdate(prevProps, prevState){
   const {submitted} = this.state;
@@ -46,14 +51,21 @@ componentDidUpdate(prevProps, prevState){
       return null
     }
   }
-
-  render(){
-    return(
-      <View style = { styles.container } >
-
-          <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
-              <Icon name='ios-arrow-dropup-circle' size= {80}/>
-              <Text>Currently connected to:</Text>
+  
+  function renderItem() {
+	  if (this.state.saving_and_validating_settings){
+		  return (
+			  <Loader></Loader>
+		  );
+	  }
+	  else if (this.state.error_message_settings){
+		  return (
+			  <Error error={this.state.error_message_settings}></Error>
+		  );
+	  }
+	  else {
+		  return (
+			  <Text>Currently connected to:</Text>
               <Text> {`${this.props.saved_server_address}${this.props.saved_port_number}`}</Text>
               <TextField
               label="Serveradresse"
@@ -67,7 +79,18 @@ componentDidUpdate(prevProps, prevState){
               value = {this.state.port}
               onChangeText={ (port) =>  this.setState({ port: port}) }
               />
-                  <Button title='touch me' onPress = { this.onPressSave }/>
+              <Button title='touch me' onPress = { this.onPressSave }/>
+		  );
+	  }
+  }
+
+  render(){
+    return(
+      <View style = { styles.container } >
+
+          <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
+              <Icon name='ios-arrow-dropup-circle' size= {80}/>
+              {this.renderItem()}
           </TouchableOpacity>
       </View>
     );

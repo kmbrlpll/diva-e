@@ -6,6 +6,7 @@ import {NavigationActions} from 'react-navigation';
 
 import { widthPercentageToDP, heightPercentageToDP } from '../helpers/PercentageToDPHelper.js';
 
+import { InfoContainer } from '../components/InfoContainer.js';
 
 class HeatTrackerInfoScreen extends Component {
 
@@ -21,6 +22,7 @@ class HeatTrackerInfoScreen extends Component {
       <View style = { styles.container } >
           <TouchableOpacity style = {styles.bottomButton} onPress= {this.navigateFromInfoToFunctionalScreen('HeatRoomPlan')}>
               <Icon name='ios-arrow-dropdown-circle' size= {80}/>
+			  <InfoContainer title='Heat Tracker info='Look at temperatures...'></InfoContainer>
           </TouchableOpacity>
       </View>
     );
