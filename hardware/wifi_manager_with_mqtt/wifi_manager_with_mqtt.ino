@@ -13,7 +13,7 @@
 
 DHTesp dht;
 
-#define DHT11_PIN 4
+#define DHT22_PIN 15
 
 // GPIO Pin for intern LED
 #define LED_BUILTIN 2 
@@ -243,7 +243,7 @@ void setup() {
   Serial.println("local ip");
   Serial.println(WiFi.localIP());
 
-  dht.setup(DHT11_PIN, DHTesp::DHT11); // Connect DHT sensor to GPIO 2
+  dht.setup(DHT22_PIN, DHTesp::DHT22); // Connect DHT sensor to GPIO 2
 
   strcat(gateway_topic, thing_id);
   strcat(temperature_topic, gateway_topic);
@@ -297,7 +297,11 @@ void loop() {
   sprintf(ctemp, "%f", temperature);
   
   dtostrf(humidity, 6, 2, chumidity);
+
+  Serial.println("\n temperature: ");
+  Serial.println(temperature);
+  Serial.println("\n humidity: ");
+  Serial.println(humidity);
   client.publish(temperature_topic, generateJson(ctemp));
   client.publish(humidity_topic, generateJson(chumidity));
-  char* temp = generateJson(ctemp);
 }
