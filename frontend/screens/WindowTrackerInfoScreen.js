@@ -1,11 +1,11 @@
 import React, {Component } from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Button } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Button, ImageBackground } from "react-native";
 import { Ionicons as Icon } from '@expo/vector-icons';
 import {NavigationActions} from 'react-navigation';
 
 import { widthPercentageToDP, heightPercentageToDP } from '../helpers/PercentageToDPHelper.js';
 
-import { InfoContainer } from '../components/InfoContainer.js';
+import InfoContainer from "../components/InfoContainer.js";
 
 class WindowTrackerInfoScreen extends Component {
 
@@ -18,12 +18,14 @@ class WindowTrackerInfoScreen extends Component {
 
   render(){
     return(
+	  <ImageBackground source = {require('../assets/background.jpg')} style={{width: '100%', height: '100%'}}>
       <View style = { styles.container } >
           <TouchableOpacity style = {styles.bottomButton} onPress= {this.navigateFromInfoToFunctionalScreen('WindowRoomPlan')}>
               <Icon name='ios-arrow-dropdown-circle' size= {80}/>
-			  <InfoContainer title='Window Tracker' info='Look for open windows...'></InfoContainer>
           </TouchableOpacity>
+		  <InfoContainer title={"Window Tracker"} info={"Description will follow soon!"}/>
       </View>
+	  </ImageBackground>
     );
   }
 }
