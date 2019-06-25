@@ -1,5 +1,5 @@
 import React, {Component } from "react";
-import { TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet, Button, ImageBackground } from "react-native";
 import { TextField } from 'react-native-materialui-textfield';
 import { Ionicons as Icon } from '@expo/vector-icons';
 import {  RaisedTextButton } from 'react-native-material-buttons';
@@ -52,7 +52,16 @@ componentDidUpdate(prevProps, prevState){
     }
   }
   
-  function renderItem() {
+  renderServerAddress = () => {
+	  if (this.props.saved_server_address && this.props.saved_port_number) {
+		  return (<Text style = {styles.connected}> {`${this.props.saved_server_address}${this.props.saved_port_number}`}</Text>);
+	  }
+	  else {
+		  return (<Text style = {styles.notConnected}>You're not connected!</Text>);
+	  }
+  }
+  
+  renderItem = () => {
 	  if (this.state.saving_and_validating_settings){
 		  return (
 			  <Loader></Loader>
@@ -65,34 +74,41 @@ componentDidUpdate(prevProps, prevState){
 	  }
 	  else {
 		  return (
-			  <Text>Currently connected to:</Text>
-              <Text> {`${this.props.saved_server_address}${this.props.saved_port_number}`}</Text>
-              <TextField
-              label="Serveradresse"
-              defaultValue= {this.props.saved_server_address}
-              value = {this.state.server_address}
-              onChangeText={ (server_address) => this.setState({ server_address: server_address }) }
-              />
-              <TextField
-              label="Port"
-              defaultValue={this.props.saved_port_number}
-              value = {this.state.port}
-              onChangeText={ (port) =>  this.setState({ port: port}) }
-              />
-              <Button title='touch me' onPress = { this.onPressSave }/>
+			  <View style = {styles.form}>
+				  <View style = {styles.serverAddress}>
+					  <Text style = {styles.title}>Currently connected to:</Text>
+					  {this.renderServerAddress()}
+				  </View>
+				  <TextField
+				  label="Serveradresse"
+				  defaultValue= {this.props.saved_server_address}
+				  value = {this.state.server_address}
+				  onChangeText={ (server_address) => this.setState({ server_address: server_address }) }
+				  />
+				  <TextField
+				  label="Port"
+				  defaultValue={this.props.saved_port_number}
+				  value = {this.state.port}
+				  onChangeText={ (port) =>  this.setState({ port: port}) }
+				  />
+				  <TouchableOpacity style = {styles.saveButton} onPress = { this.onPressSave }>
+					<Text style = {styles.save}>SAVE</Text>
+				  </TouchableOpacity>
+			  </View>
 		  );
 	  }
   }
 
   render(){
     return(
+	  <ImageBackground source = {require('../assets/background.jpg')} style={{width: '100%', height: '100%'}}>
       <View style = { styles.container } >
-
-          <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
+		  <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
               <Icon name='ios-arrow-dropup-circle' size= {80}/>
-              {this.renderItem()}
           </TouchableOpacity>
+		  {this.renderItem()}
       </View>
+	  </ImageBackground>
     );
   }
 }
@@ -108,6 +124,36 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     backgroundColor: "transparent"
+  },
+  form: {
+	justifyContent: 'center'
+  },
+  title: {
+	fontWeight: 'bold',
+	textDecorationLine: 'underline',
+	fontSize: 16
+  },
+  connected: {
+	color: '#1e1d23',
+	fontWeight: 'bold'
+  },
+  notConnected: {
+	color: 'red',
+	fontWeight: 'bold'
+  },
+  saveButton: {
+	backgroundColor: '#008080',
+	alignItems: 'center',
+	marginTop: 15
+  },
+  serverAddress: {
+	alignItems: 'center'
+  },
+  save: {
+	color: 'white',
+	fontWeight: 'bold',
+	fontSize: 16,
+	padding: 10
   }
 });
 

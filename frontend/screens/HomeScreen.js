@@ -1,13 +1,17 @@
 import React, {Component } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, ImageBackground } from "react-native";
+
+import Error from "../components/Error.js";
 
 
 class HomeScreen extends Component {
   render(){
     return(
-      <View style = { styles.container } >
-          <Text>Home Screen</Text>
-      </View>
+	  <ImageBackground source = {require('../assets/background.jpg')} style={{width: '100%', height: '100%'}}>
+      	<View style = {styles.container}>
+			<Text>Home Screen</Text>
+		</View>
+	  </ImageBackground>
     );
   }
 }
