@@ -39,7 +39,6 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-Dockerfile
 __pycache__
 
 # virutal environment of Python
