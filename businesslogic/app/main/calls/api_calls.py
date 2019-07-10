@@ -116,7 +116,7 @@ def get_running_heaters():
         #threshold,leave in dict, else delete heater from dict
         if heater_temp:
             if abs(float(room_temperature) - float(heater_temp)) > threshold:
-                v["state"] = round(float(heater_temp))
+                v["state"] = int(round(float(heater_temp)))
             else:
                 del all_heaters["data"][k]
         else:

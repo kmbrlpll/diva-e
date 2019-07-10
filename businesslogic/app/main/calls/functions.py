@@ -41,11 +41,11 @@ def get_room_temperatures():
     temperatures_data = {}
 
     for k,v in room_temperatures["data"].items():
-        v["state"] = get_channel_state(k,v["thing_id"])
+        state = get_channel_state(k,v["thing_id"])
+        v["state"] = int(round(float(state)))
         temperatures_data[k] = v
 
     return temperatures_data
-
 
 def get_thing(id):
     thing = requests.get(url + "configuration/things/" + id, {}, headers=headers).json()
