@@ -23,8 +23,6 @@ import {
 } from './constants';
 
 
-
-
 //save Settings
 
 export function saveSettings(server_address, port_number) {

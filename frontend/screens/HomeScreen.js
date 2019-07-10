@@ -1,15 +1,18 @@
 import React, {Component } from "react";
-import { View, Text, StyleSheet, Button, ImageBackground } from "react-native";
+import { View, Image, Text, StyleSheet, Button, ImageBackground } from "react-native";
+import {Dimensions} from 'react-native';
 
 import Error from "../components/Error.js";
+import { widthPercentageToDP, heightPercentageToDP } from '../helpers/PercentageToDPHelper.js';
 
 
 class HomeScreen extends Component {
   render(){
     return(
-	  <ImageBackground source = {require('../assets/background.jpg')} style={{width: '100%', height: '100%'}}>
+	  <ImageBackground source = {require('../assets/background.png')} style={{width: '100%', height: '100%'}}>
       	<View style = {styles.container}>
-			<Text>Home Screen</Text>
+        <Image source={require('../assets/logoiot.jpg')} style={styles.image} >
+        </Image>
 		</View>
 	  </ImageBackground>
     );
@@ -23,5 +26,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  image: {
+    width: widthPercentageToDP('60%'),
+    height: widthPercentageToDP('60%'),
+    justifyContent: 'center',
+    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+
   }
 });
