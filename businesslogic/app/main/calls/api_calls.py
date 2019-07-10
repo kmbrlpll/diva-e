@@ -107,20 +107,24 @@ def get_running_heaters():
 
    #loop over all heater channels
     for k,v in all_heaters["data"].items():
-        print(k + ": " + str(v))
+        #print(k + ": " + str(v))
         #look up room temperature in the room the heater is in
         heater_room = v["room"]
+
         room_temperature = room_temp_dict[heater_room]
         heater_temp = get_channel_state(k,v["thing_id"])
-
+        print(heater_temp)
         #if the difference between heater temperature and room temperature exceeds a certain
         #threshold,leave in dict, else delete heater from dict
-
-        if abs(room_temperature - heater_temp) > threshold:
-            v["state"] = heater_temp
+        if heater_temp:
+            if abs(float(room_temperature) - float(heater_temp)) > threshold:
+                v["state"] = round(float(heater_temp))
+            else:
+                del all_heaters["data"][k]
         else:
             del all_heaters["data"][k]
 
-
     return json.dumps(all_heaters)
+
+
 

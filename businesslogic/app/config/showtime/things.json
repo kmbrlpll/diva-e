@@ -1,0 +1,94 @@
+{
+  "name": "thing01",
+  "enabled": true,
+  "description": "string",
+  "protocol": {
+    "name": "string",
+    "properties": {}
+  },
+  "channels": [
+    {
+      "id": "temperature01",
+      "name": " rom temperature 01",
+      "properties": {
+        "x": 370,
+        "y": 1140,
+        "type": "temperature",
+        "room": "H001"
+      },
+      "enabled": true,
+      "description": "room temperature of H001",
+      "type": "text",
+      "mode": "r"
+    },
+    {
+      "id": "heater01",
+      "name": "freezer temperature 01",
+      "properties": {
+        "x": 130,
+        "y": 880,
+        "type": "heater",
+        "room": "H001"
+      },
+      "enabled": true,
+      "description": "temperature of small freezer",
+      "type": "text",
+      "mode": "r"
+    },
+    {
+      "id": "window01",
+      "name": "freezer door 01",
+      "properties": {
+        "x": 280,
+        "y": 950,
+        "type": "window",
+        "room": "H001"
+      },
+      "enabled": true,
+      "description": "door sensor of small freezer",
+      "type": "text",
+      "mode": "r"
+    }
+  ],
+  "properties": {}
+},
+{
+  "name": "thing02",
+  "enabled": true,
+  "description": "string",
+  "protocol": {
+    "name": "string",
+    "properties": {}
+  },
+  "channels": [
+    {
+      "id": "heater02",
+      "name": "freezer temperature 02",
+      "properties": {
+        "x": 620,
+        "y": 810,
+        "type": "heater",
+        "room": "H001"
+      },
+      "enabled": true,
+      "description": "temperature of small freezer",
+      "type": "text",
+      "mode": "r"
+    },
+    {
+      "id": "window02",
+      "name": "freezer door 02",
+      "properties": {
+        "x": 700,
+        "y": 1135,
+        "type": "window",
+        "room": "H001"
+      },
+      "enabled": true,
+      "description": "door sensor of big freezer",
+      "type": "text",
+      "mode": "r"
+    }
+  ],
+  "properties": {}
+}
