@@ -1,0 +1,21 @@
+{
+  "path" : "/businesslogic/app/config/showtime/floorplan.png",
+  "image_dimensions" : [2638,1573],
+  "things" : [
+
+    {
+      "id" : "thing01",
+       "channels":{
+          "temperature01" : {"x" : 1250, "y" : 1250, "type" : "temperature", "room": "H001"},
+          "heater01" : {"x" : 570, "y" : 1090, "type" : "window", "room": "H001"},
+          "window01" : {"x" : 580, "y" : 1080, "type" : "heater", "room": "H001"}
+           }
+    },
+    {
+      "id" : "thing02",
+       "channels":{
+          "heater02" : {"x" : 1936, "y" : 1027, "type" : "heater", "room": "H001"},
+          "window02" : {"x" : 2131, "y" : 680, "type" : "window", "room": "H001"}
+    }
+  ]
+}

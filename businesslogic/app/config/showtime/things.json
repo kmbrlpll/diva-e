@@ -11,8 +11,8 @@
       "id": "temperature01",
       "name": " rom temperature 01",
       "properties": {
-        "x": 370,
-        "y": 1140,
+        "x": 1250,
+        "y": 1250,
         "type": "temperature",
         "room": "H001"
       },
@@ -25,8 +25,8 @@
       "id": "heater01",
       "name": "freezer temperature 01",
       "properties": {
-        "x": 130,
-        "y": 880,
+        "x": 580,
+        "y": 1080,
         "type": "heater",
         "room": "H001"
       },
@@ -39,8 +39,8 @@
       "id": "window01",
       "name": "freezer door 01",
       "properties": {
-        "x": 280,
-        "y": 950,
+        "x": 570,
+        "y": 1090,
         "type": "window",
         "room": "H001"
       },
@@ -65,8 +65,8 @@
       "id": "heater02",
       "name": "freezer temperature 02",
       "properties": {
-        "x": 620,
-        "y": 810,
+        "x": 1936,
+        "y": 1027,
         "type": "heater",
         "room": "H001"
       },
@@ -79,8 +79,8 @@
       "id": "window02",
       "name": "freezer door 02",
       "properties": {
-        "x": 700,
-        "y": 1135,
+        "x": 2131,
+        "y": 680,
         "type": "window",
         "room": "H001"
       },
