@@ -11,7 +11,7 @@ routing = Blueprint('routing', __name__)
 acceptable_failure_rate = 0.1
 accepted_channel_types = ["temperature", "heater", "window"]
 error_data = {"error_code" : 404, "Message" : "Not found."}
-threshold = 10.0
+threshold = 0.01
 
 @routing.route('/')
 def index():
@@ -95,13 +95,14 @@ def get_open_windows():
 
 @routing.route('/runningheaters', methods=['GET'])
 def get_running_heaters():
-
     all_heaters = get_channels("heater")
     temps = get_room_temperatures()
 
     room_temp_dict = {}
     for temp_id,temp_info in temps.items():
         room_temp_dict[temp_info["room"]] = temp_info["state"]
+
+    delete_those = []
 
    #loop over all heater channels
     for k,v in all_heaters["data"].items():
@@ -116,16 +117,22 @@ def get_running_heaters():
         #threshold,leave in dict, else delete heater from dict
         if heater_temp:
             if abs(float(room_temperature) - float(heater_temp)) > threshold:
+                print(heater_temp)
                 v["state"] = int(round(float(heater_temp)))
             else:
-                del all_heaters["data"][k]
+                #del all_heaters["data"][k]
+                delete_those.append(k)
         else:
+            #del all_heaters["data"][k]
+            delete_those.append(k)
+
+    for i in delete_those:
             del all_heaters["data"][k]
 
     return all_heaters
 
 
-@app.route('/getall', methods=['GET'])
+@routing.route('/getall', methods=['GET'])
 def get_all():
 
     data = {

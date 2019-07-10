@@ -1,31 +1,56 @@
 import React, {Component } from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
-import { Ionicons as Icon } from '@expo/vector-icons';
 import  { connect }  from "react-redux";
 
-import {} from '../redux-saga/actions.js';
+import {
+  startPolling,
+  cancelPolling
+} from '../redux-saga-polling/actions.js';
+
+import { Error } from '../components/Error.js';
+
+import WindowMap from '../components/WindowMap.js';
 
 
 class ShowtimeScreen extends Component {
   componentDidMount() {
-    //TODO here dispatch
-   }
+    let { dispatch } = this.props;
+    dispatch(startPolling());
+  }
+
+  componentDidUnmount(){
+    let { dispatch } = this.props;
+    dispatch(cancelPolling());
+  }
+
 	
   render(){
     // map the fetched data to variables and pass to properties of WindowMap
+    let {data} = this.props;
+    console.log(data);
     return(
       <View style = { styles.container } >
           <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
             <Icon name='ios-arrow-dropup-circle' size= {40}/>
 			      <WindowMap 
-            windows_data = {/*open_windows*/} 
-            running_heaters_data = {/*turned_on_heaters*/} 
-            room_temperature_data={/*room_temperatures*/}/>    
+            windows_data = {data.openwindows} 
+            running_heaters_data = {data.runningheaters} 
+            room_temperature_data={data.temperatures}/>    
           </TouchableOpacity>
-      </View>
+     </View>
     );
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+    is_polling: state.globalUnpersisted.is_polling,
+    is_fetching: state.globalUnpersisted.is_fetching,
+    data: state.globalUnpersisted.data,
+    error_message: state.globalUnpersisted.error_message_load_all,
+  };
+};
 
 
 const styles = StyleSheet.create({
@@ -35,6 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
   },
+
   backButton: {
     position: 'absolute',
     top: 0,
@@ -43,11 +69,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
-  return {
-    };
-};
-
-
-
-export default connect(mapStateToProps)(HeatRoomPlanScreen);
+export default connect(mapStateToProps)(ShowtimeScreen);

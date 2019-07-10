@@ -1,5 +1,4 @@
 import { take, call, takeLatest, put, select, cancel } from 'redux-saga/effects';
-import AsyncStorage from "react-native";
 import { REHYDRATE } from 'redux-persist/lib/constants';
 import {
   SAVE_SETTINGS,
@@ -36,7 +35,6 @@ const getOptions = {
   };
 
 
-
  function getBaseURL(){
     const state = store.getState();
     return `${state.settings.saved_server_address}${state.settings.saved_port_number}`;
@@ -45,6 +43,7 @@ const getOptions = {
 export function* saveSettings(action){
   try {
     const requestURL = `${action.server_address}${action.port_number}${api.getTurnedOnHeaters}`;
+
     const response = yield call (fetch, requestURL, getOptions);
     const res = yield response.json();
     if(!response){

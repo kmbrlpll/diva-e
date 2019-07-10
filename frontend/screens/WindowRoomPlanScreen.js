@@ -12,36 +12,16 @@ import {
 
 import { Error } from '../components/Error.js';
 import { Loader } from '../components/Loader.js';
+import WindowMap from '../components/WindowMap.js';
 
 class WindowRoomPlanScreen extends Component {
+
   componentDidMount() {
     let { dispatch } = this.props;
     dispatch(loadOpenWindows());
     dispatch(loadRoomMap());
   }
-	
-  /*function renderItem() {
-	  if (this.state.fetching_open_windows || this.state.fetching_room_plan){
-		  return (
-			  <Loader></Loader>
-		  );
-	  }
-	  else if (this.state.error_message_windows){
-		  return (
-			  <Error error={this.state.error_message_windows}></Error>
-		  );
-	  }
-	  else if (this.state.error_message_room_plan){
-		  return (
-			  <Error error={this.state.error_message_room_plan}></Error>
-		  );
-	  }
-	  else {
-		  return (
-			  <WindowMap type='window' ></WindowMap>
-		  );
-	  }
-  }*/
+
 
   render(){
     let {open_windows, room_plan, error_message_windows, error_message_room_plan} = this.props;
@@ -66,12 +46,17 @@ class WindowRoomPlanScreen extends Component {
 
     }
 
+
     return(
       <View style = { styles.container } >
+      <WindowMap></WindowMap>
         <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
             <Icon name='ios-arrow-dropup-circle' size= {40}/>
         </TouchableOpacity>
-		    <WindowMap type='window' ></WindowMap>
+		    <WindowMap 
+        windows_data = {open_windows} 
+        running_heaters_data = {/*turned_on_heaters*/[]]} 
+        room_temperature_data={/*room_temperatures*/[]]}/>
       </View>
     );
   }
@@ -79,7 +64,7 @@ class WindowRoomPlanScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    fetching_open_windows: state.globalUnpersistedfetching_open_windows,
+    fetching_open_windows: state.globalUnpersisted.fetching_open_windows,
     open_windows: state.globalUnpersisted.open_windows,
     error_message_windows: state.globalUnpersisted.error_message_windows,
 
@@ -105,3 +90,28 @@ const styles = StyleSheet.create({
 });
 
 export default connect(mapStateToProps)(WindowRoomPlanScreen);
+  /*
+
+  renderScreenState =()=> {
+
+	  if (this.state.fetching_open_windows || this.state.fetching_room_plan){
+		  return (
+			  <Loader></Loader>
+		  );
+	  }
+	  else if (this.state.error_message_windows){
+		  return (
+			  <Error error={this.state.error_message_windows}></Error>
+		  );
+	  }
+	  else if (this.state.error_message_room_plan){
+		  return (
+			  <Error error={this.state.error_message_room_plan}></Error>
+		  );
+	  }
+	  else {
+		  return (
+			  <WindowMap type='window' ></WindowMap>
+		  );
+	  }
+  }*/
