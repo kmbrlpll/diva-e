@@ -13,6 +13,7 @@ import WindowTrackerInfoScreen from '../screens/WindowTrackerInfoScreen';
 import WindowRoomPlanScreen from '../screens/WindowRoomPlanScreen';
 import HeatTrackerInfoScreen from '../screens/HeatTrackerInfoScreen';
 import HeatRoomPlanScreen from '../screens/HeatRoomPlanScreen';
+import ShowtimeScreen from '../screens/ShowtimeScreen'; // just for showtime
 
 
 import SideMenu from './SideMenu';
@@ -73,7 +74,10 @@ const stylingStackNavigators = {
    };
 
 
+
+
 // Stack Navigators
+
 const HomeNavigator = createStackNavigator({
    Home: {
     screen: HomeScreen,
@@ -188,7 +192,15 @@ const HeatTrackerStack = createStackNavigator(
 },
 );
 
-
+//just for showtime
+const ShowtimeStack = createStackNavigator({
+   Home: {
+    screen: ShowtimeScreen,
+    navigationOptions: ({navigation}) => ({
+      header: null,
+    }),
+  }
+});
 
 const DrawerStackNavigationApp = createDrawerNavigator(
   {
@@ -205,6 +217,10 @@ const DrawerStackNavigationApp = createDrawerNavigator(
 
    'HeatTracker': {
     screen: HeatTrackerStack,
+  },
+
+   'Showtime': {
+     screen: ShowtimeStack,
   },
   },
 

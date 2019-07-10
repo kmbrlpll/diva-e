@@ -7,9 +7,14 @@ import createSagaMiddleware from 'redux-saga';
 import {createStore, applyMiddleware} from 'redux';
 import { persistStore } from 'redux-persist';
 
-import watcherSaga from './redux-saga/sagas.js';
+/*import watcherSaga from './redux-saga/sagas.js';
 import persistedReducer from './redux-saga/reducerConfig.js';
 import { sagaMiddleware, store, persistor } from './redux-saga/store.js';
+*/
+
+import watcherSaga from './redux-saga-polling/sagas.js';
+import persistedReducer from './redux-saga-polling/reducerConfig.js';
+import { sagaMiddleware, store, persistor } from './redux-saga-polling/store.js';
 
 /*
 

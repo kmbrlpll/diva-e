@@ -18,7 +18,7 @@ class SettingsInfoScreen extends Component {
 
   render(){
     return(
-		<ImageBackground source = {require('../assets/background.jpg')} style={{width: '100%', height: '100%'}}>
+		<ImageBackground source = {require('../assets/background.png')} style={{width: '100%', height: '100%'}}>
       	<View style = {styles.container}>
           	<TouchableOpacity style = {styles.bottomButton} onPress= {this.navigateFromInfoToFunctionalScreen('Settings')}>
 				<Icon name='ios-arrow-dropdown-circle' size= {80}/>

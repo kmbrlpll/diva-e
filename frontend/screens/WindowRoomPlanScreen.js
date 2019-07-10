@@ -10,15 +10,21 @@ import {
 
 import { Error } from '../components/Error.js';
 import { Loader } from '../components/Loader.js';
+import WindowMap from '../components/WindowMap.js';
 
 class WindowRoomPlanScreen extends Component {
+
+/*  constructor(props) {
+    super(props);
+    this.renderScreenState = this.renderScreenState.bind(this);
+  }*/
   componentDidMount() {
     let { dispatch } = this.props;
     dispatch(loadOpenWindows());
     dispatch(loadRoomMap());
   }
-	
-  function renderItem() {
+
+  renderScreenState =()=> {
 	  if (this.state.fetching_open_windows || this.state.fetching_room_plan){
 		  return (
 			  <Loader></Loader>
@@ -42,7 +48,7 @@ class WindowRoomPlanScreen extends Component {
   }
 
   render(){
-    let {open_windows, room_plan, error_message_windows, error_message_room_plan} = this.props;
+    /*let {open_windows, room_plan, error_message_windows, error_message_room_plan} = this.props;
 
     if(error_message_windows &&  error_message_room_plan){
       console.log("errors in window tracker caught");
@@ -64,11 +70,12 @@ class WindowRoomPlanScreen extends Component {
 
     }
 
+*/
     return(
       <View style = { styles.container } >
+      <WindowMap></WindowMap>
         <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
             <Icon name='ios-arrow-dropup-circle' size= {40}/>
-		    {this.renderItem()}
         </TouchableOpacity>
       </View>
     );
@@ -77,7 +84,7 @@ class WindowRoomPlanScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    fetching_open_windows: state.globalUnpersistedfetching_open_windows,
+    fetching_open_windows: state.globalUnpersisted.fetching_open_windows,
     open_windows: state.globalUnpersisted.open_windows,
     error_message_windows: state.globalUnpersisted.error_message_windows,
 
