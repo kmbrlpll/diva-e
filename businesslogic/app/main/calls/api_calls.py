@@ -112,8 +112,7 @@ def get_running_heaters():
         room_temperature = room_temp_dict[heater_room]
         heater_temp = get_channel_state(k,v["thing_id"])
         print(heater_temp)
-        #if the difference between heater temperature and room temperature exceeds a certain
-        #threshold,leave in dict, else delete heater from dict
+
         if heater_temp:
             if abs(float(room_temperature) - float(heater_temp)) > threshold:
                 v["state"] = int(round(float(heater_temp)))
@@ -125,7 +124,7 @@ def get_running_heaters():
     return all_heaters
 
 
-@app.route('/getall', methods=['GET'])
+@routing.route('/getall', methods=['GET'])
 def get_all():
 
     data = {

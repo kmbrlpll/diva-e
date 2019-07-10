@@ -9,7 +9,6 @@ from flask import Flask, current_app
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-# api calls to get states of a single channel (url_state) and a list with all the thing configs (url_things)
 url = environ.get("URL_API")
 
 headers = {
@@ -51,8 +50,6 @@ def get_thing(id):
     thing = requests.get(url + "configuration/things/" + id, {}, headers=headers).json()
     return thing
 
-# takes channel type (window/heater) as parameter, makes api call and
-# returns a dictionary with channel info
 def get_channels(c_type):
 
     if c_type not in accepted_channel_types:
@@ -81,8 +78,8 @@ def get_channels(c_type):
 
 
 def get_channel_state(channel_id, thing_id):
-
-   req_url = url + "states/things/" + thing_id + "/channels/" + channel_id
+    
+    req_url = url + "states/things/" + thing_id + "/channels/" + channel_id
     r_state = requests.get(req_url, {}, headers=headers)
 
     if r_state.status_code == 404:
