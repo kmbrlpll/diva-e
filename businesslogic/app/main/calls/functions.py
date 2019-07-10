@@ -35,16 +35,16 @@ def stringify_list(l):
         s += ", " + item
     return s[2:]
 
+
 def get_room_temperatures():
     room_temperatures = get_channels("temperature")
-    temperatures_data = []
+    temperatures_data = {}
 
     for k,v in room_temperatures["data"].items():
         v["state"] = get_channel_state(k,v["thing_id"])
-        temperatures_data.append(v)
+        temperatures_data[k] = v
 
-    room_temperatures["data"] = temperatures_data
-    return room_temperatures
+    return temperatures_data
 
 
 def get_thing(id):
@@ -61,7 +61,6 @@ def get_channels(c_type):
         all_channels = {}
         data = get_all_things()
         all_things = data["data"]
-
 
         for i in all_things["things"]:
             for thing in  i["channels"]:
@@ -83,21 +82,12 @@ def get_channels(c_type):
 
 def get_channel_state(channel_id, thing_id):
 
-    print("channel id:")
-    print(channel_id)
-    print("thing id:")
-    print(thing_id)
-
-    req_url = url + "states/things/" + thing_id + "/channels/" + channel_id
-
-    print(req_url)
+   req_url = url + "states/things/" + thing_id + "/channels/" + channel_id
     r_state = requests.get(req_url, {}, headers=headers)
 
     if r_state.status_code == 404:
         state = None
     else:
         state = r_state.json()["state"]["reported"]
-
-    print(state)
 
     return state

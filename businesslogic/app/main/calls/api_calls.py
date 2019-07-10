@@ -17,6 +17,10 @@ threshold = 10.0
 def index():
     return json.dumps({"dummy":"dummy-value"})
 
+@routing.route('/networktest')
+def networktest():
+    return json.dumps({"status" : 200, data : {"dummy":"dummy-value"}})
+
 
 @routing.route('/getfloorplan', methods=['GET'])
 def get_floorplan():
@@ -86,13 +90,7 @@ def get_open_windows():
                 s = stringify_list(unreachable_windows)
                 all_windows["warning"] = "The states of the following windows could not be found: " + s
 
-    return json.dumps(all_windows)
-
-
-@routing.route('/getallroomtemperatures', methods=['GET'])
-def get_all_room_temperatures():
-    data = get_room_temperatures();
-    return json.dumps(data)
+    return all_windows
 
 
 @routing.route('/runningheaters', methods=['GET'])
@@ -102,25 +100,45 @@ def get_running_heaters():
     temps = get_room_temperatures()
 
     room_temp_dict = {}
-    for temp_channel in temps["data"]:
-        room_temp_dict[temp_channel["room"]] = temp_channel["state"]
+    for temp_id,temp_info in temps.items():
+        room_temp_dict[temp_info["room"]] = temp_info["state"]
 
    #loop over all heater channels
     for k,v in all_heaters["data"].items():
-        print(k + ": " + str(v))
+        #print(k + ": " + str(v))
         #look up room temperature in the room the heater is in
         heater_room = v["room"]
+
         room_temperature = room_temp_dict[heater_room]
         heater_temp = get_channel_state(k,v["thing_id"])
-
+        print(heater_temp)
         #if the difference between heater temperature and room temperature exceeds a certain
         #threshold,leave in dict, else delete heater from dict
-
-        if abs(room_temperature - heater_temp) > threshold:
-            v["state"] = heater_temp
+        if heater_temp:
+            if abs(float(room_temperature) - float(heater_temp)) > threshold:
+                v["state"] = round(float(heater_temp))
+            else:
+                del all_heaters["data"][k]
         else:
             del all_heaters["data"][k]
 
+    return all_heaters
 
-    return json.dumps(all_heaters)
 
+@app.route('/getall', methods=['GET'])
+def get_all():
+
+    data = {
+        "status": 200,
+        "openwindows" : {},
+        "runningheaters" : {},
+        "temperatures" : {}
+    }
+
+    data["temperatures"] = get_room_temperatures()
+    runningheaters = get_running_heaters()
+    data["runningheaters"] = runningheaters["data"]
+    openwindows =get_open_windows()
+    data["openwindows"] = openwindows["data"]
+
+    return json.dumps(data)
