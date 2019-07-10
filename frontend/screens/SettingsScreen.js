@@ -27,7 +27,7 @@ class SettingsScreen extends Component {
 
    console.log(this.props.saved_server_address);
  }
-	
+
 
 
 componentDidUpdate(prevProps, prevState){
@@ -51,7 +51,7 @@ componentDidUpdate(prevProps, prevState){
       return null
     }
   }
-  
+
   renderServerAddress = () => {
 	  if (this.props.saved_server_address && this.props.saved_port_number) {
 		  return (<Text style = {styles.connected}> {`${this.props.saved_server_address}${this.props.saved_port_number}`}</Text>);
@@ -60,7 +60,7 @@ componentDidUpdate(prevProps, prevState){
 		  return (<Text style = {styles.notConnected}>You're not connected!</Text>);
 	  }
   }
-  
+
   renderItem = () => {
 	  if (this.state.saving_and_validating_settings){
 		  return (
@@ -101,7 +101,7 @@ componentDidUpdate(prevProps, prevState){
 
   render(){
     return(
-	  <ImageBackground source = {require('../assets/background.jpg')} style={{width: '100%', height: '100%'}}>
+	  <ImageBackground source = {require('../assets/background.png')} style={{width: '100%', height: '100%'}}>
       <View style = { styles.container } >
 		  <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
               <Icon name='ios-arrow-dropup-circle' size= {80}/>
