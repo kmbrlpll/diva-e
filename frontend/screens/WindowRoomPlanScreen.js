@@ -2,8 +2,7 @@ import React, {Component } from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
 import { Ionicons as Icon } from '@expo/vector-icons';
 import  { connect }  from "react-redux";
-
-import WindowMap from "../components/WindowMap"
+import WindowMap from '../components/WindowMap.js';
 
 import {
   loadOpenWindows,
@@ -12,7 +11,6 @@ import {
 
 import { Error } from '../components/Error.js';
 import { Loader } from '../components/Loader.js';
-import WindowMap from '../components/WindowMap.js';
 
 class WindowRoomPlanScreen extends Component {
 
@@ -55,8 +53,8 @@ class WindowRoomPlanScreen extends Component {
         </TouchableOpacity>
 		    <WindowMap 
         windows_data = {open_windows} 
-        running_heaters_data = {/*turned_on_heaters*/[]]} 
-        room_temperature_data={/*room_temperatures*/[]]}/>
+        running_heaters_data = {/*turned_on_heaters*/[]} 
+        room_temperature_data={/*room_temperatures*/[]}/>
       </View>
     );
   }
