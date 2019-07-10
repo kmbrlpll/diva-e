@@ -3,6 +3,8 @@ import { TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
 import { Ionicons as Icon } from '@expo/vector-icons';
 import  { connect }  from "react-redux";
 
+import WindowMap from "../components/WindowMap"
+
 import {
   loadOpenWindows,
   loadRoomMap
@@ -18,7 +20,7 @@ class WindowRoomPlanScreen extends Component {
     dispatch(loadRoomMap());
   }
 	
-  function renderItem() {
+  /*function renderItem() {
 	  if (this.state.fetching_open_windows || this.state.fetching_room_plan){
 		  return (
 			  <Loader></Loader>
@@ -39,7 +41,7 @@ class WindowRoomPlanScreen extends Component {
 			  <WindowMap type='window' ></WindowMap>
 		  );
 	  }
-  }
+  }*/
 
   render(){
     let {open_windows, room_plan, error_message_windows, error_message_room_plan} = this.props;
@@ -68,8 +70,8 @@ class WindowRoomPlanScreen extends Component {
       <View style = { styles.container } >
         <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
             <Icon name='ios-arrow-dropup-circle' size= {40}/>
-		    {this.renderItem()}
         </TouchableOpacity>
+		    <WindowMap type='window' ></WindowMap>
       </View>
     );
   }
