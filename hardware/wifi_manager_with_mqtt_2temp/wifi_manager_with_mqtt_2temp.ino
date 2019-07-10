@@ -12,8 +12,9 @@
 #include "DHTesp.h"
 
 DHTesp dht;
+DHTesp dht2;
 
-#define DHT22_PIN 13
+// #define DHT22_PIN 13
 
 // GPIO Pin for intern LED
 #define LED_BUILTIN 2 
@@ -28,6 +29,7 @@ char thing_id[20] = "thing";
 char token[34] = "YOUR_TOKEN";
 
 char temperature_topic[40]; 
+char heater_topic[40];
 char humidity_topic[40];
 char window_topic[40];
 
@@ -243,15 +245,18 @@ void setup() {
   Serial.println("local ip");
   Serial.println(WiFi.localIP());
 
-  dht.setup(DHT22_PIN, DHTesp::DHT22); // Connect DHT sensor to GPIO 2
+  dht.setup(15, DHTesp::DHT22); // Connect DHT sensor to GPIO 15
+  dht2.setup(13, DHTesp::DHT22); // Connect DHT sensor to GPIO 13
 
   strcat(gateway_topic, thing_id);
   strcat(temperature_topic, gateway_topic);
-  strcat(temperature_topic, "/heater02");
+  strcat(temperature_topic, "/temperature01");
   strcat(humidity_topic, gateway_topic);
   strcat(humidity_topic, "/humidity");
+  strcat(heater_topic, gateway_topic);
+  strcat(heater_topic, "/heater01");
   strcat(window_topic, gateway_topic);
-  strcat(window_topic, "/window02");
+  strcat(window_topic, "/window01");
   
 
   client.setServer(mqtt_server, atoi(mqtt_port));
@@ -293,20 +298,21 @@ void loop() {
 
   float humidity = dht.getHumidity();
   float temperature = dht.getTemperature();
+  float heater = dht2.getTemperature();
 
-  char ctemp[8], chumidity[8];
+  char ctemp[8], chumidity[8], cheater[8];
   sprintf(ctemp, "%f", temperature);
+  //sprintf(cheater, "%f", heater);
   
-  dtostrf(humidity, 6, 2, chumidity);
+  //dtostrf(humidity, 6, 2, chumidity);
+  dtostrf(heater, 6, 2, cheater);
 
   Serial.println("\n temperature: ");
   Serial.println(temperature);
+  Serial.println("\n heater: ");
+  Serial.println(heater);
   Serial.println("\n humidity: ");
   Serial.println(humidity);
-  Serial.print("\n Temperature Topic");
-  Serial.print(temperature_topic);
-  Serial.print("\n");
-  Serial.print(window_topic);
   client.publish(temperature_topic, generateJson(ctemp));
-  // client.publish(humidity_topic, generateJson(chumidity));
+  client.publish(heater_topic, generateJson(cheater));
 }
