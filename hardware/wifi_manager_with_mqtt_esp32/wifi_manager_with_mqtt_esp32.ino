@@ -1,9 +1,18 @@
 #include <FS.h>                   //this needs to be first, or it all crashes and burns...
+
+#if defined(ESP32)
+#include <SPIFFS.h>
+#include <WiFi.h>
+#include <WebServer.h>
+
+#elif(ESP8266)
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#endif
 
 //needed for library
 #include <DNSServer.h>
-#include <ESP8266WebServer.h>
 #include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager
 
 #include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
@@ -13,7 +22,7 @@
 
 DHTesp dht;
 
-#define DHT22_PIN 13
+#define DHT11_PIN 4
 
 // GPIO Pin for intern LED
 #define LED_BUILTIN 2 
@@ -22,7 +31,7 @@ int switchReed = 16;
 char* gateway_topic = "things/data/";
 
 //define your default values here, if there are different values in config.json, they are overwritten.
-char mqtt_server[60] = "diva-e-iot-lab.northeurope.cloudapp.azure.com";
+char mqtt_server[60];
 char mqtt_port[6] = "1883";
 char thing_id[20] = "thing";
 char token[34] = "YOUR_TOKEN";
@@ -129,6 +138,7 @@ void setup() {
     Serial.println("mounted file system");
     if (SPIFFS.exists("/config.json")) {
       //file exists, reading and loading
+      //SPIFFS.remove("/config.json");
       Serial.println("reading config file");
       File configFile = SPIFFS.open("/config.json", "r");
       if (configFile) {
@@ -206,7 +216,10 @@ void setup() {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
     //reset and try again, or maybe put it to deep sleep
-    ESP.reset();
+    //For ESP8266
+    //ESP.reset();
+    //For ESP32
+    ESP.restart();
     delay(5000);
   }
 
@@ -243,15 +256,15 @@ void setup() {
   Serial.println("local ip");
   Serial.println(WiFi.localIP());
 
-  dht.setup(DHT22_PIN, DHTesp::DHT22); // Connect DHT sensor to GPIO 2
+  dht.setup(DHT11_PIN, DHTesp::DHT11); // Connect DHT sensor to GPIO 2
 
   strcat(gateway_topic, thing_id);
   strcat(temperature_topic, gateway_topic);
-  strcat(temperature_topic, "/heater02");
+  strcat(temperature_topic, "/temperature");
   strcat(humidity_topic, gateway_topic);
   strcat(humidity_topic, "/humidity");
   strcat(window_topic, gateway_topic);
-  strcat(window_topic, "/window02");
+  strcat(window_topic, "/window");
   
 
   client.setServer(mqtt_server, atoi(mqtt_port));
@@ -267,7 +280,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  delay(dht.getMinimumSamplingPeriod());
   if (!client.connected()) {
     reconnect();
   }
@@ -286,7 +298,7 @@ void loop() {
     digitalWrite(LED_BUILTIN, HIGH);
     windowStatus = "Open";
   }
-  
+  delay(10000);
 
   // Publishes Window Status
   client.publish(window_topic, generateJson(windowStatus));
@@ -298,15 +310,7 @@ void loop() {
   sprintf(ctemp, "%f", temperature);
   
   dtostrf(humidity, 6, 2, chumidity);
-
-  Serial.println("\n temperature: ");
-  Serial.println(temperature);
-  Serial.println("\n humidity: ");
-  Serial.println(humidity);
-  Serial.print("\n Temperature Topic");
-  Serial.print(temperature_topic);
-  Serial.print("\n");
-  Serial.print(window_topic);
   client.publish(temperature_topic, generateJson(ctemp));
-  // client.publish(humidity_topic, generateJson(chumidity));
+  client.publish(humidity_topic, generateJson(chumidity));
+  char* temp = generateJson(ctemp);
 }
