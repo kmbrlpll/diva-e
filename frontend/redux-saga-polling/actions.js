@@ -9,7 +9,6 @@ import {
   LOAD_ALL_THINGS_SUCCESS,
   ERROR_LOAD_ALL_THINGS,
 
-
   START_POLLING,
   CANCEL_POLLING,
 
@@ -17,13 +16,13 @@ import {
 
 //polling
 
-function startPolling() {
+export function startPolling() {
       return {
         type: START_POLLING
       };
     }
 
-function cancelPolling() {
+export function cancelPolling() {
       return {
         type: CANCEL_POLLING
       };
@@ -67,10 +66,9 @@ export function loadAllThings() {
 export function loadAllThingsSuccess(all_things) {
   return {
     type: LOAD_ALL_THINGS_SUCCESS,
-    turned_on_heaters: all_things,
+    all_things: all_things,
   };
 };
-
 
 export function setErrorMessageLoading(error) {
   return {

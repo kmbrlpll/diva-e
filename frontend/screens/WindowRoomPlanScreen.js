@@ -14,16 +14,14 @@ import { Loader } from '../components/Loader.js';
 
 class WindowRoomPlanScreen extends Component {
 
-  componentDidMount() {
+  componentDidMount(){
     let { dispatch } = this.props;
     dispatch(loadOpenWindows());
     dispatch(loadRoomMap());
   }
 
-
   render(){
     let {open_windows, room_plan, error_message_windows, error_message_room_plan} = this.props;
-
     if(error_message_windows &&  error_message_room_plan){
       console.log("errors in window tracker caught");
 
@@ -51,9 +49,9 @@ class WindowRoomPlanScreen extends Component {
         <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
             <Icon name='ios-arrow-dropup-circle' size= {40}/>
         </TouchableOpacity>
-		    <WindowMap 
-        windows_data = {open_windows} 
-        running_heaters_data = {/*turned_on_heaters*/[]} 
+		    <WindowMap
+        windows_data = {open_windows}
+        running_heaters_data = {/*turned_on_heaters*/[]}
         room_temperature_data={/*room_temperatures*/[]}/>
       </View>
     );
