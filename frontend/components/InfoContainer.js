@@ -8,7 +8,7 @@ class InfoContainer extends React.Component {
 		  <Text style={styles.title}>{this.props.title}</Text>
 		  <Text style={styles.infoText}>{this.props.info}</Text>
 	  </View>
-	  
+
     );
   }
 }
@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     padding: 8,
-  },	
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'center',
     paddingBottom: 20,
-  },	
+  },
   infoText: {
     fontSize: 14,
     textAlign: 'center',

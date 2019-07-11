@@ -2,7 +2,6 @@ import React, {Component } from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
 import { Ionicons as Icon } from '@expo/vector-icons';
 import  { connect }  from "react-redux";
-import Orientation from 'react-native-orientation';
 import WindowMap from "../components/WindowMap";
 
 import {
@@ -51,7 +50,7 @@ class HeatRoomPlanScreen extends Component {
 
   }*/
 
-	
+
   render(){
     let {room_plan, room_temperatures, turned_on_heaters, error_message_heaters, error_message_room_plan, error_message_room_temperatures} = this.props;
 
@@ -82,9 +81,9 @@ class HeatRoomPlanScreen extends Component {
               <Icon name='ios-arrow-dropup-circle' size= {40}/>
           {/*this.renderScreenState()*/}
           </TouchableOpacity>
-			    <WindowMap 
-            windows_data = {[]} 
-            running_heaters_data = {turned_on_heaters} 
+			    <WindowMap
+            windows_data = {[]}
+            running_heaters_data = {turned_on_heaters}
             room_temperature_data={room_temperatures}
           />
       </View>

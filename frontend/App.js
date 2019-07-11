@@ -16,19 +16,9 @@ import watcherSaga from './redux-saga-polling/sagas.js';
 import persistedReducer from './redux-saga-polling/reducerConfig.js';
 import { sagaMiddleware, store, persistor } from './redux-saga-polling/store.js';
 
-/*
-
-const sagaMiddleware = createSagaMiddleware();
-
-export const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
-export const persistor = persistStore(store);
-
-*/
 sagaMiddleware.run(watcherSaga);
 
-
 export default class App extends Component{
-
   render(){
     return(
     <Provider store={store}>

@@ -24,7 +24,6 @@ class SettingsScreen extends Component {
 };
 
  componentDidMount(){
-
    console.log(this.props.saved_server_address);
  }
 

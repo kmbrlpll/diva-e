@@ -6,6 +6,7 @@ import { AntDesign as AntDesignIcon } from '@expo/vector-icons';
 import { Entypo as EntypoIcon } from '@expo/vector-icons';
 import { Ionicons as IoniconsIcon } from '@expo/vector-icons';
 import { FontAwesome as FontAwesomeIcon } from '@expo/vector-icons';
+import { Foundation as FoundationIcon } from '@expo/vector-icons';
 import {Dimensions} from 'react-native';
 
 import { widthPercentageToDP, heightPercentageToDP } from '../helpers/PercentageToDPHelper';
@@ -34,7 +35,7 @@ export default class SideMenu extends Component {
    return (
        <View style={styles.container}>
            <View style={styles.headerContainer}>
-               <Image source={require('./header.png')} style={styles.menuImage} >
+               <Image source={require('../assets/trackit.jpg')} style={styles.menuImage} >
                </Image>
            </View>
            <View style={styles.mainNavLabelContainer}>
@@ -53,7 +54,12 @@ export default class SideMenu extends Component {
                <TouchableOpacity onPress ={ this.navigateToStack('HeatTracker')} style= {styles.singleLabelContainer}>
                   <FontAwesomeIcon name= "thermometer-4" style= {styles.icon}  size= {25}/>
                   <Text style={(currentComponent == 'HeatTracker') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Heat Tracker</Text>
+               </TouchableOpacity>
+               <TouchableOpacity onPress ={ this.navigateToStack('Showtime')} style= {styles.singleLabelContainer}>
+                  <FoundationIcon name= "lightbulb" style= {styles.icon}  size= {25}/>
+                  <Text style={(currentComponent == 'Showtime') ? styles.navScreenLabelActive : styles.navScreenLabelPassive}>Showtime</Text>
                 </TouchableOpacity>
+
            </View>
        </View>
 
@@ -73,8 +79,8 @@ export default class SideMenu extends Component {
     },
     menuImage:{
        marginTop: heightPercentageToDP('6%'),
-       width: widthPercentageToDP('30%'),
-       height: widthPercentageToDP('30%'),
+       width: widthPercentageToDP('35%'),
+       height: widthPercentageToDP('35%'),
        justifyContent: 'center',
        borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
      },

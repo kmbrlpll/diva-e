@@ -1,6 +1,8 @@
-import { take, call, takeLatest, put, select, cancel } from 'redux-saga/effects';
+import { all, race, take, call, takeLatest, put, select, cancel } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist/lib/constants';
 import {
+  START_POLLING,
+  CANCEL_POLLING,
   SAVE_SETTINGS,
   LOAD_ALL_THINGS,
 } from './constants';
@@ -61,39 +63,38 @@ function delay(duration) {
 }
 
 function* fetchData(action) {
-  while (true) {
+  console.log("hello?");
+  while (true){
     try {
-      //const baseURL = getBaseURL();
-
-      const baseURL = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:8080';
-      const backendRoute = api.getAllThings;
+      const baseURL = 'http://diva-e-iot-lab.northeurope.cloudapp.azure.com:5000/getall';
+      const backendRoute = api.getAll;
       const requestURL = `${baseURL}${backendRoute}`;
-      const response = yield call (fetch, requestURL, getOptions);
-
+      const response = yield call(fetch, baseURL, getOptions);
+      yield console.log(baseURL);
       const res = yield response.json();
+      yield console.log(res);
+      const data = {openwindows: res.openwindows, runningheaters: res.runningheaters, temperatures: res.temperatures };
       if (response.status >= 200 && response.status < 300){
-            yield console.log(res.data);
-            yield put(loadAllThingsSuccess(res.data));
+            yield put(loadAllThingsSuccess(data));
           }else {
             throw res;
       }
       yield call(delay, 5000)
-
     } catch (err) {
+      yield console.log(err);
       yield put(setErrorMessageLoading(err));
     }
     }
 }
 
-
 function* watchPollSaga() {
   while (true) {
-    const data = yield take(START_POLLING)
-    yield race([call(fetchData), take(CANCEL_POLLING)])
+    yield take(START_POLLING);
+    yield race([call(fetchData), take(CANCEL_POLLING)]);
   }
 }
 
 export default function* watcherSaga(){
   yield take(REHYDRATE);
-  yield [watchPollSaga()]
+  yield all([watchPollSaga()]);
 };

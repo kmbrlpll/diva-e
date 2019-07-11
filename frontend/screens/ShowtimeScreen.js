@@ -12,31 +12,38 @@ import { Error } from '../components/Error.js';
 import WindowMap from '../components/WindowMap.js';
 
 
-class ShowtimeScreen extends Component {
-  componentDidMount() {
+class ShowtimeScreen extends Component{
+componentDidMount(){
     let { dispatch } = this.props;
     dispatch(startPolling());
   }
 
-  componentDidUnmount(){
+  componentWillUnmount(){
     let { dispatch } = this.props;
     dispatch(cancelPolling());
   }
 
-	
+  returnWindowMap = () => {
+    let {data} = this.props;
+    if(data){
+    return(<WindowMap
+      windows_data = {data.openwindows }
+      running_heaters_data = {data.runningheaters  }
+      room_temperature_data={data.temperatures }/>);
+    }
+  }
+
   render(){
     // map the fetched data to variables and pass to properties of WindowMap
     let {data} = this.props;
+    console.log("in component");
     console.log(data);
+
     return(
       <View style = { styles.container } >
           <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
-            <Icon name='ios-arrow-dropup-circle' size= {40}/>
-			      <WindowMap 
-            windows_data = {data.openwindows} 
-            running_heaters_data = {data.runningheaters} 
-            room_temperature_data={data.temperatures}/>    
           </TouchableOpacity>
+          {this.returnWindowMap()}
      </View>
     );
   }
