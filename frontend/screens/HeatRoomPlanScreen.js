@@ -2,6 +2,8 @@ import React, {Component } from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
 import { Ionicons as Icon } from '@expo/vector-icons';
 import  { connect }  from "react-redux";
+import Orientation from 'react-native-orientation';
+import WindowMap from "../components/WindowMap";
 
 import {
   loadTurnedOnHeaters,
@@ -9,23 +11,18 @@ import {
   loadRoomMap,
 } from '../redux-saga/actions.js';
 
-import { Error } from '../components/Error.js';
-import { Loader } from '../components/Loader.js';
 
 class HeatRoomPlanScreen extends Component {
 
-  /*constructor(props) {
-      super(props);
-      this.renderScreenState = this.renderScreenState.bind(this);
-  }*/
   componentDidMount() {
     let {dispatch} = this.props;
     dispatch(loadRoomMap());
     dispatch(loadTurnedOnHeaters());
     dispatch(loadRoomTemperatures());
+
  }
 
-  renderScreenState =()=> {
+  /*renderScreenState =()=> {
 	  if (this.state.fetching_turned_on_heaters || this.state.fetching_room_temperatures || this.state.fetching_room_plan){
 		  return (
 			  <Loader></Loader>
@@ -51,8 +48,10 @@ class HeatRoomPlanScreen extends Component {
 			  <WindowMap type='thermometer' ></WindowMap>
 		  );
 	  }
-  }
 
+  }*/
+
+	
   render(){
     let {room_plan, room_temperatures, turned_on_heaters, error_message_heaters, error_message_room_plan, error_message_room_temperatures} = this.props;
 
@@ -61,7 +60,6 @@ class HeatRoomPlanScreen extends Component {
     }
     if(error_message_room_plan && error_message_heaters && error_message_room_temperatures){
       console.log("errors in heat tracker caught");
-
     }
 
     if(error_message_room_plan){
@@ -82,8 +80,13 @@ class HeatRoomPlanScreen extends Component {
       <View style = { styles.container } >
           <TouchableOpacity style = {styles.backButton} onPress= {() => this.props.navigation.goBack()} >
               <Icon name='ios-arrow-dropup-circle' size= {40}/>
-			  {this.renderScreenState()}
+          {/*this.renderScreenState()*/}
           </TouchableOpacity>
+			    <WindowMap 
+            windows_data = {[]} 
+            running_heaters_data = {turned_on_heaters} 
+            room_temperature_data={room_temperatures}
+          />
       </View>
     );
   }

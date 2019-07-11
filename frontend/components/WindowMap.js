@@ -1,8 +1,8 @@
 import React, {Component } from "react";
 import { View, Text, StyleSheet, Button , Image , Dimensions} from "react-native";
 import {PulseIndicator} from 'react-native-indicators';
-import ThermometherIndicator from './ThermometherIndicator';
-import WindowIndicator from './WindowIndicator';
+import ValueIndicator from './ValueIndicator';
+import OnOffIndicator from './OnOffIndicator';
 
 
 const windowList = [
@@ -428,32 +428,86 @@ const thermometherList = [
     value: '24', 
   },
 ]
+let windowListNew = {
+  window_id1:{
+    x: 50 , 
+    y: 200, 
+    state: 'open',
+  },
+  window_id2:{
+    x: 50 , 
+    y: 400, 
+    state: 'open',
+  }
+}
 
-const xMax = 665; 
-const yMax = 828;
-const imageDimensions = { x : 665 , y : 828 };
+let temperatureListNew = {
+  temperature_id1:{
+    x: 100 , 
+    y: 200, 
+    state: "26",
+  },
+  temperature_id2:{
+    x: 100 , 
+    y: 400, 
+    state: "12",
+  }
+}
+
+let heaterListNew = {
+  heater_id1:{
+    x: 150 , 
+    y: 200, 
+    state: '-12',
+  },
+  heater_id2:{
+    x: 150 , 
+    y: 400, 
+    state: '-15',
+  }
+}
+
+
+const imageDimensions = { x : 336 , y : 603 };
 
 class WindowMap extends Component {
 
+
   render(){
-    let windows = windowList.map( w => 
-      <WindowIndicator
-      key={w.id}
-      windowData = {w} 
+    let {windows_data,running_heaters_data,room_temperature_data} = this.props;
+
+    windowListNew = windows_data ? windows_data : windowListNew;
+    heaterListNew = running_heaters_data ? running_heaters_data : heaterListNew;
+    temperatureListNew = room_temperature_data ? room_temperature_data : temperatureListNew;
+
+
+    let windows = Object.keys(windowListNew).map( w_key => 
+      <OnOffIndicator
+      key={w_key}
+      windowData = {windowListNew[w_key]} 
       imageDimensions = {imageDimensions} 
-      ></WindowIndicator>);
+      ></OnOffIndicator>);
+
+    let heaters = Object.keys(heaterListNew).map( h_key => 
+      <ValueIndicator
+      key={h_key}
+      thingData = {heaterListNew[h_key]} 
+      imageDimensions = {imageDimensions} 
+      ></ValueIndicator>);
         
-    let thermomethers = thermometherList.map( t => <ThermometherIndicator 
-      key = {t.id}
-      thermometerData = {t}
+    let thermomethers = Object.keys(temperatureListNew).map( t_key => 
+      <ValueIndicator 
+      key = {t_key}
+      thingData = {temperatureListNew[t_key]}
       imageDimensions = {imageDimensions}
-      ></ThermometherIndicator>);
+      ></ValueIndicator>);
     
     return(
       <View style = {styles.container}> 
-          <Image source={require('../assets/divaeBuroPlanRaisedBrightness.png')} style={styles.image} resizeMode = 'stretch'/>
+          <Image source={require('../assets/showtime_plan_portrait.jpeg')} style={styles.image} resizeMode = 'stretch'/>
           {windows}
-          {this.props.type == 'thermometer' ? thermomethers : null}
+          {thermomethers}
+          {heaters}
       </View>
     );
   }
@@ -468,7 +522,7 @@ const styles = StyleSheet.create({
     borderWidth: Dimensions.get('window').width * 0.05,
     borderTopWidth: Dimensions.get('window').width * 0.12,
     borderStyle: 'solid', 
-    borderColor: '#EEEEEE', 
+    borderColor: '#FFFFFF', 
     position: 'absolute', 
   },
   image: {
