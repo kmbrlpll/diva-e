@@ -11,7 +11,7 @@ routing = Blueprint('routing', __name__)
 acceptable_failure_rate = 0.1
 accepted_channel_types = ["temperature", "heater", "window"]
 error_data = {"error_code" : 404, "Message" : "Not found."}
-threshold = 0.01
+threshold = 5.0
 
 @routing.route('/')
 def index():
@@ -64,6 +64,7 @@ def get_open_windows():
     print(all_windows)
     number_of_total_windows = len(all_windows["data"])
     unreachable_windows = []
+    closed_windows = []
 
     for k,v in all_windows["data"].items():
         print("***")
@@ -76,8 +77,8 @@ def get_open_windows():
         del all_windows["data"][k]["thing_id"]
         del all_windows["data"][k]["type"]
 
-        if channel_state == "closed":
-           del all_windows["data"][k]
+        if channel_state.lower() == "closed":
+           closed_windows.append(k)
         else:
             if channel_state == None:
                 unreachable_windows.append(k)
@@ -90,6 +91,8 @@ def get_open_windows():
                 s = stringify_list(unreachable_windows)
                 all_windows["warning"] = "The states of the following windows could not be found: " + s
 
+    for i in closed_windows:
+        del all_windows["data"][i]
     return all_windows
 
 
@@ -127,7 +130,7 @@ def get_running_heaters():
             delete_those.append(k)
 
     for i in delete_those:
-            del all_heaters["data"][k]
+            del all_heaters["data"][i]
 
     return all_heaters
 
