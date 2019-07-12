@@ -41,7 +41,10 @@ def get_room_temperatures():
 
     for k,v in room_temperatures["data"].items():
         state = get_channel_state(k,v["thing_id"])
-        v["state"] = int(round(float(state)))
+        if state == "nan":
+            v["state"] = 27.0
+        else:
+            v["state"] = int(round(float(state)))
         temperatures_data[k] = v
 
     return temperatures_data
@@ -78,7 +81,7 @@ def get_channels(c_type):
 
 
 def get_channel_state(channel_id, thing_id):
-    
+
     req_url = url + "states/things/" + thing_id + "/channels/" + channel_id
     r_state = requests.get(req_url, {}, headers=headers)
 
