@@ -468,7 +468,7 @@ let heaterListNew = {
 }
 
 
-const imageDimensions = { x : 900 , y : 1600 };
+const imageDimensions = { x : 2600 , y : 4185 };
 
 export default class WindowMap extends Component {
 
@@ -504,7 +504,7 @@ export default class WindowMap extends Component {
 
     return(
       <View style = {styles.container}>
-          <Image source={require('../assets/showtime_plan_portrait.jpeg')} style={styles.image} resizeMode = 'stretch'/>
+          <Image source={require('../assets/plan.jpg')} style={styles.image} resizeMode = 'stretch'/>
           {windows}
           {thermomethers}
           {heaters}
